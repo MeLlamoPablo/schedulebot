@@ -65,6 +65,10 @@ You can run your bot with:
 ```sh
 $ npm run bot
 ```
+## Deploying to Heroku
+
+If you wanted to host ScheduleBot locally, you'd need to have your computer on 24/7 to have your bot always online. To avoid that, we could use a PaaS provider, such as Heroku. Heroku's free plan is good enough for hosting our bot. To learn how to deploy the bot to heroku, [go here](https://github.com/MeLlamoPablo/schedulebot/tree/heroku#heroku-deployment-guide).
+
 ## License
 
 Apache-2.0 © [Pablo Rodríguez](https://github.com/MeLlamoPablo)
