@@ -1,70 +1,64 @@
-# ScheduleBot
-> A Discord bot that makes scheduling easy
+# Heroku deployment guide
 
-ScheduleBot is a bot that manages events, such as a practice game with your team, or a league
-inhouse, or a tournament match.
+*If you're looking for the local installation instructions, go
+[here](https://github.com/MeLlamoPablo/schedulebot#schedulebot).*
 
-## Features
+If you wanted to host ScheduleBot locally, you'd need to have your computer on 24/7 to have your
+bot always online. To avoid that, we could use a PaaS provider, such as
+[Heroku](https://www.heroku.com/). Heroku's free plan is good enough for hosting our bot.
 
-* **Time zone handling**: ScheduleBot manages timezons for you. If there are European and
-American people on your team, if an European creates an event, Americans will be able to convert
-it to their timezone with the `convert` command.
-* **Confirm and reject handling**: ScheduleBot allows users to confirm or deny their attendance
-to an event, so you can see who and how many people are you gonna play with. ScheduleBot can also
- limit how many people can attend an event.
-* **Admin commands**: ScheduleBot allows elevated privilege commands with `schedulebot-admin`.
-Admins can perform actions such as removing events, or blacklisting an user to prevent them to
-use the bot.
-* **Linking an event to a role**: ScheduleBot allows events to be linked to a role, so that
-members of that role can be notified when they are required to confirm or deny attendance to an
-event.
+## Deployment instructions
 
-## Local installation
-
-To run ScheduleBot locally, you will need:
-
-* [NodeJS](https://nodejs.org/en/download/) 6 or above.
-* [PostgreSQL](https://www.postgresql.org/download/).
-	* You'll need to create an empty database for ScheduleBot.
-* [git](https://git-scm.com/downloads), so you can easily clone this repo (optional).
-
-Start by cloning this repo:
+First, [sign up to Heroku](https://signup.heroku.com/), and create an app. You may deploy your
+bot using the Heroku CLI, or GitHub. I recommend GitHub, as it's easier. If you choose Heroku
+CLI, follow the instructions there. If you choose GitHub, first fork this repository. Then, clone
+ your fork and checkout the `heroku` branch:
 
 ```sh
-$ git clone https://github.com/MeLlamoPablo/schedulebot.git
+$ git clone https://github.com/<your_github_username>/schedulebot.git
 $ cd schedulebot
+$ git checkout heroku
 ```
 
-And edit the bot's settings in `config.js`. You can edit or leave whatever you want, but you
-should at least edit:
+The `heroku` branch is ready to be compatible with Heroku. The differences from `master` are:
+
+* The database settings are no longer stored in `config.js`, as they are provided by Heroku through
+an environment variable.
+* The `package.json` file is modified to tell Heroku to use Node 6.
+* A `Procfile` with your bot's process is included.
+
+Now edit the bot's settings in `config.js`. You can edit or leave whatever you want, but you should
+at least edit:
 
 * `master_channel` with the Discord channel where your bot will operate.
 	* If you don't know how to get it, go to Discord's settings, then `Appearance`, then check
 	`Developer Mode`. After that, right click on your channel, and click `Copy ID`.
 * `default_timezone` with the time zone which will be used by the bot.
-* `db` with yout postgres database settings.
 
-Now, make sure that your postgres server is running, and run the database setup script:
+Next step is configuring your database. In your app's dashboard, go to `Resources`, and under
+`Add-ons`, click `Find more add-ons`. Then search `Heroku Posgres` and add it to your app. The
+free version is good enough for personal use.
+
+After adding it, you'll find it under the `Add-ons` section. Click on it to your Heroku Postgres
+dashboard, and then click on your newly created Datastore. Scroll down to `Database Credentials`,
+ and click `View Credentials`. Now run the setup script entering those credentials:
 
 ```sh
 $ npm run setup
 ```
 
-The script will take your database settings from `config.js`, so you can just go ahead and press
-enter. When asked if you want to connect over SSL, unless you have configured your postgres
-server to use it, you should say no. Then follow the script's instructions to finish the setup.
-
-After that, you just need to install the dependencies, and you're good to go.
+Follow the script's instructions. After you're done, you're ready to push your repo to GitHub:
 
 ```sh
-$ npm install
+$ git add . && git commit -m "Ready to deploy"
+$ git push --all
 ```
 
-You can run your bot with:
+Now, in your Heroku dashboard, go to `Deploy`, select `GitHub`, connect your account, and add
+your fork. Be sure to select the `heroku` branch.
 
-```sh
-$ npm run bot
-```
-## License
-
-Apache-2.0 © [Pablo Rodríguez](https://github.com/MeLlamoPablo)
+The first build should be triggered. When it's done, navigate to `Resources`, and, if everything
+went right, you should see two Dynos: `web`, and `bot`. Shutdown `web`, as we don't need it, and
+turn on `bot`. After that, your bot will be loaded. Go to the top right corner, under `More`,
+then `View Logs` to see the console log. If you see the message `Running!`, the bot is live.
+Congratulations!

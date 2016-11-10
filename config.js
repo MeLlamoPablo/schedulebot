@@ -45,14 +45,7 @@ module.exports = {
 	},
 
 	// List of accepted timezones: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-	default_timezone: "Europe/Madrid",
-
-	db: {
-		"user": "",
-		"password": "",
-		"host": "",
-		"database": ""
-	}
+	default_timezone: "Europe/Madrid"
 };
 
 // "Add to server" link:
