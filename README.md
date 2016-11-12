@@ -12,12 +12,13 @@ bot always online. To avoid that, we could use a PaaS provider, such as
 First, [sign up to Heroku](https://signup.heroku.com/), and create an app. You may deploy your
 bot using the Heroku CLI, or GitHub. I recommend GitHub, as it's easier. If you choose Heroku
 CLI, follow the instructions there. If you choose GitHub, first fork this repository. Then, clone
- your fork and checkout the `heroku` branch:
+ your fork and checkout the `heroku` branch, and install the dependencies:
 
 ```sh
 $ git clone https://github.com/<your_github_username>/schedulebot.git
 $ cd schedulebot
 $ git checkout heroku
+$ npm install
 ```
 
 The `heroku` branch is ready to be compatible with Heroku. The differences from `master` are:
