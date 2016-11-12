@@ -28,11 +28,12 @@ To run ScheduleBot locally, you will need:
 	* You'll need to create an empty database for ScheduleBot.
 * [git](https://git-scm.com/downloads), so you can easily clone this repo (optional).
 
-Start by cloning this repo:
+Start by cloning this repo, and then install the dependencies:
 
 ```sh
 $ git clone https://github.com/MeLlamoPablo/schedulebot.git
 $ cd schedulebot
+$ npm install
 ```
 
 And edit the bot's settings in `config.js`. You can edit or leave whatever you want, but you
@@ -54,17 +55,12 @@ The script will take your database settings from `config.js`, so you can just go
 enter. When asked if you want to connect over SSL, unless you have configured your postgres
 server to use it, you should say no. Then follow the script's instructions to finish the setup.
 
-After that, you just need to install the dependencies, and you're good to go.
-
-```sh
-$ npm install
-```
-
-You can run your bot with:
+After that, you're good to go. You can run your bot with:
 
 ```sh
 $ npm run bot
 ```
+
 ## Deploying to Heroku
 
 If you wanted to host ScheduleBot locally, you'd need to have your computer on 24/7 to have your bot always online. To avoid that, we could use a PaaS provider, such as Heroku. Heroku's free plan is good enough for hosting our bot. To learn how to deploy the bot to heroku, [go here](https://github.com/MeLlamoPablo/schedulebot/tree/heroku#heroku-deployment-guide).
