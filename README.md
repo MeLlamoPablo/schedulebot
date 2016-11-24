@@ -67,4 +67,4 @@ Congratulations!
 # Usage guide
 
 After deploying your bot, you might want to check out the
-[usage guide](https://github.com/MeLlamoPablo/schedulebot/blob/master/usage/usage-guide.md)
+[usage guide](https://github.com/MeLlamoPablo/schedulebot/blob/master/usage/usage-guide.md).
