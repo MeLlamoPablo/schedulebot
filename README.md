@@ -61,9 +61,17 @@ After that, you're good to go. You can run your bot with:
 $ npm run bot
 ```
 
+## Usage guide
+
+After installing your bot, you might want to check out the
+[usage guide](https://github.com/MeLlamoPablo/schedulebot/blob/master/usage/usage-guide.md).
+
 ## Deploying to Heroku
 
-If you wanted to host ScheduleBot locally, you'd need to have your computer on 24/7 to have your bot always online. To avoid that, we could use a PaaS provider, such as Heroku. Heroku's free plan is good enough for hosting our bot. To learn how to deploy the bot to heroku, [go here](https://github.com/MeLlamoPablo/schedulebot/tree/heroku#heroku-deployment-guide).
+If you wanted to host ScheduleBot locally, you'd need to have your computer on 24/7 to have your bot
+always online. To avoid that, we could use a PaaS provider, such as Heroku. Heroku's free plan is
+good enough for hosting our bot. To learn how to deploy the bot to heroku,
+[go here](https://github.com/MeLlamoPablo/schedulebot/tree/heroku#heroku-deployment-guide).
 
 ## License
 
