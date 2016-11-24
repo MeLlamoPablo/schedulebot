@@ -63,3 +63,8 @@ went right, you should see two Dynos: `web`, and `bot`. Shutdown `web`, as we do
 turn on `bot`. After that, your bot will be loaded. Go to the top right corner, under `More`,
 then `View Logs` to see the console log. If you see the message `Running!`, the bot is live.
 Congratulations!
+
+# Usage guide
+
+After deploying your bot, you might want to check out the
+[usage guide](https://github.com/MeLlamoPablo/schedulebot/blob/master/usage/usage-guide.md)
