@@ -18,7 +18,7 @@ module.exports = {
 
 	// The master channel
 	// The bot will announce the events to this channel. It won't listen to other channels.
-	master_channel: "YOUR_MASTER_CHANNEL",
+	master_channel: "195150546057822209",
 
 	// Events are considered "happening" for a margin of time, where users can see that the event
 	// is happening right now. During that time, the event is not considered expired yet.+
@@ -49,10 +49,26 @@ module.exports = {
 	disallow_talking: true,
 
 	db: {
-		"user": "",
-		"password": "",
-		"host": "",
-		"database": ""
+		"user": "postgres",
+		"password": "1234abcd",
+		"host": "localhost",
+		"database": "schedulebot"
+	},
+
+	steam: {
+		// The name that the Steam bot will take
+		name: "ScheduleBot",
+
+		// The bot's profile URL. It's needed to redirect users to it.
+		profile_url: "http://steamcommunity.com/profiles/76561198316109487/"
+	},
+
+	dota: {
+		// The default inhouse server, which will be used if the user doesn't pass the
+		// --server flag to the add-inhouse command.
+		// Go to that command's file (Or type -schedulebot add-ihouse --help)
+		// to see possible values.
+		defaultServer: "Europe"
 	}
 };
 

@@ -89,3 +89,11 @@ fabric.properties
 # modules.xml
 # .idea/misc.xml
 # *.ipr
+
+# Steam
+
+sentry
+
+# Testing files
+
+t.js
