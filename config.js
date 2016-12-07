@@ -68,7 +68,7 @@ module.exports = {
 		// --server flag to the add-inhouse command.
 		// Go to that command's file (Or type -schedulebot add-ihouse --help)
 		// to see possible values.
-		defaultServer: "Europe"
+		defaultServer: "Luxembourg"
 	}
 };
 
