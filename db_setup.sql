@@ -18,15 +18,16 @@ CREATE TABLE public.blacklist
     name TEXT
 );
 
-CREATE TABLE public.events
+CREATE TABLE events
 (
-  id INTEGER PRIMARY KEY NOT NULL DEFAULT nextval('events_id_seq'::regclass),
-  name TEXT,
-  time BIGINT,
-  summary_msg_id TEXT,
-  "limit" INTEGER DEFAULT 5,
-  waiting JSON,
-  inhouse JSON
+    id INTEGER PRIMARY KEY NOT NULL,
+    name TEXT,
+    time BIGINT,
+    summary_msg_id TEXT,
+    "limit" INTEGER DEFAULT 5,
+    waiting JSON,
+    inhouse JSON,
+    lobby_ended BOOLEAN DEFAULT false NOT NULL
 );
 
 CREATE TABLE confirms
