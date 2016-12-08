@@ -3,7 +3,7 @@
 
 *Note: you're currently viewing the Dota version. This version supports Dota 2 inhouses and its 
 configuration is a bit trickier because you need a Steam Bot. If you're looking for the standard 
-version, [go here](https://github.com/MeLlamoPablo/schedulebot#schedulebot)*
+version, [go here](https://github.com/MeLlamoPablo/schedulebot#schedulebot).*
 
 ScheduleBot is a bot that manages events, such as a practice game with your team, or a league
 inhouse, or a tournament match.
@@ -79,7 +79,7 @@ $ npm run bot
 ## Usage guide
 
 After installing your bot, you might want to check out the
-[usage guide](https://github.com/MeLlamoPablo/schedulebot/blob/master/usage/usage-guide.md).
+[usage guide](https://github.com/MeLlamoPablo/schedulebot/blob/dota/usage/usage-guide.md).
 
 ## Deploying to Heroku
 
