@@ -4,7 +4,7 @@
 Installation](https://github.com/MeLlamoPablo/schedulebot#local-installation)" or 
 "[Deploying to Heroku](https://github.com/MeLlamoPablo/schedulebot/tree/heroku#heroku-deployment-guide)"*.
 
-ScheduleBot is structured has two levels of access: the public level, which is accessed with the 
+ScheduleBot's structure has two levels of access: the public level, which is accessed with the 
 `congfig.js:prefix` prefix, and the admin level, which is accesses with the
 `config.js:adminApp.prefix` prefix.
 
