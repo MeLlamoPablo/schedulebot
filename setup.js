@@ -154,8 +154,9 @@ inquirer.prompt([
 
 function createDbStructure(client) {
 	return new Promise((fulfill, reject) => {
+		let sql;
 		try {
-			let sql = fs.readFileSync("./db_setup.sql", {encoding: "utf-8"});
+			sql = fs.readFileSync("./db_setup.sql", {encoding: "utf-8"});
 		} catch (err) {
 			reject(err);
 		}
