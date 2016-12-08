@@ -234,3 +234,26 @@ Example:
 ```
 schedulebot-admin link 1 @team-members
 ```
+
+### get-lobby *(Dota Edition only)*
+
+The `resend-invite` command is used get the current lobby details (lobby name and password) sent 
+to you in a direct messsage. It takes no arguments.
+
+Example:
+
+```
+@ScheduleBot get-lobby
+```
+
+### force-lobby-start *(Dota Edition only)*
+
+The `force-lobby-start` command is used to force a start on the current lobby. Normally, lobbies 
+start automatically when 10 players have joined. However, lobbies can be started with less than 
+10 with this command.
+
+Example:
+
+```
+@ScheduleBot force-lobby-start
+```
