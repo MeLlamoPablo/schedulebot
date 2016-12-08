@@ -1,11 +1,19 @@
-# ScheduleBot
+# ScheduleBot | Dota Edition
 > A Discord bot that makes scheduling easy
+
+*Note: you're currently viewing the Dota version. This version support Dota 2 inhouses and it's 
+configuration is a bit trickier because you need a Steam Bot.
+If you're looking for the standard version,
+[go here](https://github.com/MeLlamoPablo/schedulebot#schedulebot)*
 
 ScheduleBot is a bot that manages events, such as a practice game with your team, or a league
 inhouse, or a tournament match.
 
 ## Features
 
+* **Dota inhouses**: the Dota version makes it easy to create inhouses, as you can link an event 
+to an inhouse. A Dota bot will automatically create a lobby and invite every player who have 
+confirmed their attendance.
 * **Time zone handling**: ScheduleBot manages timezons for you. If there are European and
 American people on your team, if an European creates an event, Americans will be able to convert
 it to their timezone with the `convert` command.
@@ -21,12 +29,13 @@ event.
 
 ## Local installation
 
-To run ScheduleBot locally, you will need:
+To run ScheduleBot Dota Edition locally, you will need:
 
 * [NodeJS](https://nodejs.org/en/download/) 6 or above.
 * [PostgreSQL](https://www.postgresql.org/download/).
 	* You'll need to create an empty database for ScheduleBot.
 * [git](https://git-scm.com/downloads), so you can easily clone this repo (optional).
+* A second [Steam](http://steamcommunity.com/) account for your bot.
 
 Start by cloning this repo, and then install the dependencies:
 
@@ -44,6 +53,7 @@ should at least edit:
 	`Developer Mode`. After that, right click on your channel, and click `Copy ID`.
 * `default_timezone` with the time zone which will be used by the bot.
 * `db` with yout postgres database settings.
+* `steam.profile_url` with your Steam bot's profile URL.
 
 Now, make sure that your postgres server is running, and run the database setup script:
 
@@ -55,7 +65,13 @@ The script will take your database settings from `config.js`, so you can just go
 enter. When asked if you want to connect over SSL, unless you have configured your postgres
 server to use it, you should say no. Then follow the script's instructions to finish the setup.
 
-After that, you're good to go. You can run your bot with:
+After that, you need to configure your Steam credentials:
+
+```sh
+$ npm run setup-steam
+```
+
+Follow the script's instructions and you're good to go. You can run then your bot with:
 
 ```sh
 $ npm run bot

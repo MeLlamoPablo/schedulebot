@@ -18,7 +18,7 @@ module.exports = {
 
 	// The master channel
 	// The bot will announce the events to this channel. It won't listen to other channels.
-	master_channel: "195150546057822209",
+	master_channel: "YOUR_MASTER_CHANNEL",
 
 	// Events are considered "happening" for a margin of time, where users can see that the event
 	// is happening right now. During that time, the event is not considered expired yet.+
@@ -49,10 +49,10 @@ module.exports = {
 	disallow_talking: true,
 
 	db: {
-		"user": "postgres",
-		"password": "1234abcd",
-		"host": "localhost",
-		"database": "schedulebot"
+		"user": "",
+		"password": "",
+		"host": "",
+		"database": ""
 	},
 
 	steam: {
@@ -60,7 +60,7 @@ module.exports = {
 		name: "ScheduleBot",
 
 		// The bot's profile URL. It's needed to redirect users to it.
-		profile_url: "http://steamcommunity.com/profiles/76561198316109487/"
+		profile_url: "http://steamcommunity.com/profiles/YOUR_BOT_ID/"
 	},
 
 	dota: {

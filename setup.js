@@ -1,7 +1,7 @@
 const fs       = require("fs");
 const inquirer = require("inquirer");
 const pg       = require("pg");
-var cfg        = require("./config");
+let cfg        = require("./config");
 
 
 // So that we don't get a "can't read property of undefined" error
@@ -45,10 +45,10 @@ inquirer.prompt([
 ]).then(answers => {
 	pg.defaults.ssl = answers.db_ssl;
 
-	var conStr = "postgres://" + answers.db_user + ":" + answers.db_password
+	let conStr = "postgres://" + answers.db_user + ":" + answers.db_password
 		+ "@" + answers.db_host + "/" + answers.db_database;
 
-	var client = new pg.Client(conStr);
+	let client = new pg.Client(conStr);
 
 	client.connect(err => {
 		if (!err) {
@@ -155,7 +155,7 @@ inquirer.prompt([
 function createDbStructure(client) {
 	return new Promise((fulfill, reject) => {
 		try {
-			var sql = fs.readFileSync("./db_setup.sql", {encoding: "utf-8"});
+			let sql = fs.readFileSync("./db_setup.sql", {encoding: "utf-8"});
 		} catch (err) {
 			reject(err);
 		}

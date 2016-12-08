@@ -70,6 +70,79 @@ Example:
   Your attendance status was updated.
 ```
 
+### link-steam *(Dota Edition only)*
+
+The `link-steam` command, used without any arguments, replies with a link to the Steam Bot's 
+profile. When you add the bot as a friend on Steam, it will send you a code. After that, you can 
+run this command again with your code.
+
+Example:
+
+```
+@ScheduleBot link-steam MY_CODE
+```
+
+Your Steam account will then be verified, and you'll be able to join inhouse events.
+
+### add-inhouse *(Dota Edition only)*
+
+The `add-inhouse` command is used to link an event to an inhouse Dota 2 lobby. When the event 
+time comes, the lobby will automatically be created by the bot, and every user who has confirmed 
+their attendance will be automatically invited.
+
+The preferred method for joining is through a bot invite, because only the people who have 
+confirmed their attendance are elegible for one. This way, the people who sign up first are the 
+ones who have the guarantee to play, because further sign ups would be rejected for exceeding the
+limit.
+ 
+However, if for some reason there are players who can't join, a bot admin can retrieve the lobby 
+password by using the admin command `get-lobby`.
+
+Once an inhouse has been added to an event, every attendant is required to have its Steam account
+linked through `link-steam`, so that the Dota bot can invite them to the lobby. Anyone who hasn't
+linked their Steam account, but confirmed their attendance would be removed from the attendant 
+list, and anyone who hasn't linked their Steam account and attempts to sign up for an inhouse event
+would receive an error.
+
+**Note: remember to set the `--limit` of the event you are adding an inhouse to to 10!**
+
+The `add-inhouse` command takes one argument:
+
+* `id` is the ID of the event you are referring to.
+
+It also accepts the following flags:
+
+* `--gamemode` (alias `-g`) determines the game mode of the inhouse lobby. Run the command with 
+the `--help` flag to see a list containing all the possible options.
+* `--server` (alias `-s`) determines the server of the inhouse lobby. Run the command with 
+the `--help` flag to see a list containing all the possible options.
+* `--no-balance` (alias `-n`) disables, if passed, the automatic team balance that occurs before 
+game launch.
+
+The `add-inhouse` command can also be run over an event with an already defined inhouse to edit 
+its parameters.
+
+Example:
+
+```
+> @ScheduleBot create Test "01/01/2016 15:00"
+> @DearUser,
+  Your event Test was created with ID #1.
+> @Schedulebot add-inhouse 1 --gamemode "All Pick" --server "Luxembourg" --no-balance
+```
+
+### resend-invite *(Dota Edition only)*
+
+The `resend-invite` command is used to resend an invite to the current lobby to the player 
+invoking the command. This is to be used in case the invite wasn't sent automatically for some 
+reason. It takes no arguments.
+
+Example:
+
+```
+@ScheduleBot resend-invite
+```
+
 ### convert
 
 The `convert` command is used to convert an event's time to a specified time zone. It takes two 

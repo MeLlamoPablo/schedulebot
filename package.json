@@ -16,6 +16,7 @@
   "scripts": {
     "bot": "node ./lib/index.js",
     "setup": "node ./setup.js",
+    "setup-steam": "node ./setup-steam.js",
     "prepublish": "gulp nsp",
     "postinstall": "node ./postinstall.js"
   },
