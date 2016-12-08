@@ -7,8 +7,17 @@ module.exports = {
 	// The bot's command prefix. The bot will recognize as command any message that begins with it.
 	// i.e: "-schedulebot foo" will trigger the command "foo",
 	//      whereas "ScheduleBot foo" will do nothing at all.
-	prefix:  "-schedulebot", // Tip: If you use "<@YOUR_BOT_USER_ID>", you can have the prefix
-	                         // be a mention to your bot.
+	prefix:  "<@YOUR_BOT_USER_ID>",
+
+	// This is a readable version of the prefix. Generally, this is the same as prefix, but if
+	// you set prefix to be in the form of "<@YOUR_BOT_USER_ID>", you'd need to set readable_prefix
+	// to be "@ScheduleBot" (or however your bot user is named).
+	//
+	// This is because when you use the characters `` in Discord (to highlight a command, in
+	// ScheduleBot's case), the string "<@YOUR_BOT_USER_ID>" doesn't get parsed as a mention.
+	// So in order not to mislead the user, we have a separate option for a readable version of
+	// our prefix.
+	readable_prefix: "@YOUR_BOT_USER_NAME",
 
 	// Admin app settings
 	admin_app: {
