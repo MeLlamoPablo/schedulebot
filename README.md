@@ -1,6 +1,11 @@
 # ScheduleBot
 > A Discord bot that makes scheduling easy
 
+*Note: you're currently viewing the Standard version. There is also a Dota 2 version available, 
+which supports the automatic creation of inhouse lobbies in the game Dota 2. If you're looking 
+for that version, click
+[here](https://github.com/MeLlamoPablo/schedulebot/tree/dota#schedulebot--dota-edition).*
+
 ScheduleBot is a bot that manages events, such as a practice game with your team, or a league
 inhouse, or a tournament match.
 
