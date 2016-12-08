@@ -57,13 +57,6 @@ module.exports = {
 	// This also requires the "manage messages" permission
 	disallow_talking: true,
 
-	db: {
-		"user": "",
-		"password": "",
-		"host": "",
-		"database": ""
-	},
-
 	steam: {
 		// The name that the Steam bot will take
 		name: "ScheduleBot",
