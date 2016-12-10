@@ -41,6 +41,7 @@ Start by cloning this repo, and then install the dependencies:
 ```sh
 $ git clone https://github.com/MeLlamoPablo/schedulebot.git
 $ cd schedulebot
+$ git checkout dota
 $ npm install
 ```
 
@@ -86,7 +87,7 @@ After installing your bot, you might want to check out the
 If you wanted to host ScheduleBot locally, you'd need to have your computer on 24/7 to have your bot
 always online. To avoid that, we could use a PaaS provider, such as Heroku. Heroku's free plan is
 good enough for hosting our bot. To learn how to deploy the bot to heroku,
-[go here](https://github.com/MeLlamoPablo/schedulebot/tree/heroku#heroku-deployment-guide).
+[go here](https://github.com/MeLlamoPablo/schedulebot/tree/heroku-dota#heroku-deployment-guide).
 
 ## License
 
