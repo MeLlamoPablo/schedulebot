@@ -243,7 +243,7 @@ to you in a direct messsage. It takes no arguments.
 Example:
 
 ```
-@ScheduleBot get-lobby
+schedulebot-admin get-lobby
 ```
 
 ### force-lobby-start *(Dota Edition only)*
@@ -255,5 +255,5 @@ start automatically when 10 players have joined. However, lobbies can be started
 Example:
 
 ```
-@ScheduleBot force-lobby-start
+schedulebot-admin force-lobby-start
 ```
