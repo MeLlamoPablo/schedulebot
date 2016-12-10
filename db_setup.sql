@@ -20,7 +20,7 @@ CREATE TABLE public.blacklist
 
 CREATE TABLE events
 (
-    id INTEGER PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     name TEXT,
     time BIGINT,
     summary_msg_id TEXT,
