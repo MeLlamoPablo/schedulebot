@@ -33,7 +33,7 @@
   "dependencies": {
     "clapp": "^1.1.0",
     "discord.js": "^10.0.1",
-    "dota2": "^4.1.0",
+    "dota2": "git+https://github.com/tomasmck/node-dota2.git#dc3b70fc3efc575527eafc892346b07416fdfc9b",
     "inquirer": "^1.2.2",
     "knex": "^0.12.6",
     "moment": "^2.15.1",
