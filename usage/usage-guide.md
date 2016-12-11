@@ -2,7 +2,7 @@
 
 *This guide assumes that you have the bot already running. If you haven't, check "[Local 
 Installation](https://github.com/MeLlamoPablo/schedulebot#local-installation)" or 
-"[Deploying to Heroku](https://github.com/MeLlamoPablo/schedulebot/tree/heroku#heroku-deployment-guide)"*.
+"[Deploying to Heroku](https://github.com/MeLlamoPablo/schedulebot/tree/heroku-dota#heroku-deployment-guide)"*.
 
 ScheduleBot's structure has two levels of access: the public level, which is accessed with the 
 `congfig.js:prefix` prefix, and the admin level, which is accesses with the
@@ -14,7 +14,7 @@ that you can configure your prefix to be a mention to your bot user by setting t
 
 ## The public level
 
-The public bots has four commands available:
+The public bots has seven commands available:
 
 ### create
 
@@ -237,7 +237,7 @@ schedulebot-admin link 1 @team-members
 
 ### get-lobby *(Dota Edition only)*
 
-The `resend-invite` command is used get the current lobby details (lobby name and password) sent 
+The `get-lobby` command is used get the current lobby details (lobby name and password) sent 
 to you in a direct messsage. It takes no arguments.
 
 Example:
