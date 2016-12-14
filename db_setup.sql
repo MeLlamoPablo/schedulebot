@@ -3,7 +3,8 @@ CREATE TABLE public.config
   bot_token TEXT,
   steam_username TEXT,
   steam_password TEXT,
-  steam_guard_code TEXT
+  steam_guard_code TEXT,
+  steam_sentry_file BYTEA
 );
 
 CREATE TABLE public.admins
