@@ -16,6 +16,7 @@
 	"scripts":{
 		"bot":"node ./lib/index.js",
 		"setup":"node ./setup.js",
+    "update":"node ./scripts/update.js",
 		"prepublish":"gulp nsp",
 		"postinstall":"node ./postinstall.js"
 	},
