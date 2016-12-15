@@ -1,6 +1,6 @@
 {
   "name": "schedulebot",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A Discord bot that makes scheduling easy",
   "homepage": "https://github.com/mellamopablo/schedulebot#readme",
   "author": "Pablo Rodríguez <pabloviolin8@gmail.com> (https://github.com/MeLlamoPablo)",
@@ -17,13 +17,15 @@
     "bot": "node ./lib/index.js",
     "setup": "node ./setup.js",
     "setup-steam": "node ./setup-steam.js",
+    "update": "node ./scripts/update.js",
     "prepublish": "gulp nsp",
     "postinstall": "node ./postinstall.js"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
-    "gulp-nsp": "^2.1.0"
+    "semver": "^5.3.0"
   },
   "repository": {
     "type": "git",

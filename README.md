@@ -82,6 +82,36 @@ $ npm run bot
 After installing your bot, you might want to check out the
 [usage guide](https://github.com/MeLlamoPablo/schedulebot/blob/dota/usage/usage-guide.md).
 
+## Updating
+
+Updating your bot is easy. First, you need to know which version you have installed. To do so, go
+to Discord and run the command:
+
+```
+@ScheduleBot --help
+```
+
+*Note: replace `@ScheduleBot` with your app's prefix*. Take note of the current version.
+
+After that, stop your bot. Then, replace your current files with the latest version files. If you
+used `git` to clone the repository, this is easy:
+
+```sh
+$ git pull --all
+```
+
+However, your bot is not ready yet. A database update is also required:
+
+```sh
+$ npm run update
+```
+
+When prompted to select the current version, select the version you took note of. When prompted 
+to select the target version, you generally want to select the latest. After that, enter your 
+database credentials, and your database will also be updated to the selected version.
+
+You're now ready to run your bot again.
+
 ## Deploying to Heroku
 
 If you wanted to host ScheduleBot locally, you'd need to have your computer on 24/7 to have your bot
