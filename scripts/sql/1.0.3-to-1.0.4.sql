@@ -1,0 +1,1 @@
+ALTER TABLE public.config ADD steam_sentry_file BYTEA DEFAULT NULL NULL;
