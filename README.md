@@ -80,3 +80,35 @@ then `View Logs` to see the console log. If you see the message
 
 After deploying your bot, you might want to check out the
 [usage guide](https://github.com/MeLlamoPablo/schedulebot/blob/dota/usage/usage-guide.md).
+
+## Updating
+
+Updating your bot is easy. First, you need to know which version you have installed. To do so, go
+to Discord and run the command:
+
+```
+@ScheduleBot --help
+```
+
+*Note: replace `@ScheduleBot` with your app's prefix*. Take note of the current version.
+
+After that, stop your bot. Then, replace your current files with the latest version files. If you
+used `git` to clone the repository, this is easy:
+
+```sh
+$ git pull --all
+```
+
+If you forked this repo to deploy to Heroku, this will not work, because it's pulling from your repo, and not from this one. To solve that, first [configure this repo (MeLlamoPablo/schedulebot) as a remote for your fork (YOUR_GITHUB_USERNAME/schedulebot)](https://help.github.com/articles/configuring-a-remote-for-a-fork/). Then, [fetch this repo](https://help.github.com/articles/syncing-a-fork/) *(change `master` to `dota` or `heroku-dota`, depending on what branch you're working with)*.
+
+However, after this your bot is not ready yet. A database update is also required:
+
+```sh
+$ npm run update
+```
+
+When prompted to select the current version, select the version you took note of. When prompted 
+to select the target version, you generally want to select the latest. After that, enter your 
+database credentials, and your database will also be updated to the selected version.
+
+You're now ready to run your bot again.

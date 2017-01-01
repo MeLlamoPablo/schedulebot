@@ -70,7 +70,9 @@ Example:
   Your attendance status was updated.
 ```
 
-### link-steam *(Dota Edition only)*
+### link-steam
+
+*(Dota Edition only)*
 
 The `link-steam` command, used without any arguments, replies with a link to the Steam Bot's 
 profile. When you add the bot as a friend on Steam, it will send you a code. After that, you can 
@@ -84,7 +86,9 @@ Example:
 
 Your Steam account will then be verified, and you'll be able to join inhouse events.
 
-### add-inhouse *(Dota Edition only)*
+### add-inhouse
+
+*(Dota Edition only)*
 
 The `add-inhouse` command is used to link an event to an inhouse Dota 2 lobby. When the event 
 time comes, the lobby will automatically be created by the bot, and every user who has confirmed 
@@ -131,7 +135,9 @@ Example:
 > @Schedulebot add-inhouse 1 --gamemode "All Pick" --server "Luxembourg" --no-balance
 ```
 
-### resend-invite *(Dota Edition only)*
+### resend-invite
+
+*(Dota Edition only)*
 
 The `resend-invite` command is used to resend an invite to the current lobby to the player 
 invoking the command. This is to be used in case the invite wasn't sent automatically for some 
@@ -235,7 +241,9 @@ Example:
 schedulebot-admin link 1 @team-members
 ```
 
-### get-lobby *(Dota Edition only)*
+### get-lobby
+
+*(Dota Edition only)*
 
 The `get-lobby` command is used get the current lobby details (lobby name and password) sent 
 to you in a direct messsage. It takes no arguments.
@@ -246,7 +254,9 @@ Example:
 schedulebot-admin get-lobby
 ```
 
-### force-lobby-start *(Dota Edition only)*
+### force-lobby-start
+
+*(Dota Edition only)*
 
 The `force-lobby-start` command is used to force a start on the current lobby. Normally, lobbies 
 start automatically when 10 players have joined. However, lobbies can be started with less than 
