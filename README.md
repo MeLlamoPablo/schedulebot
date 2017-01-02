@@ -1,4 +1,4 @@
-# ScheduleBot | Dota Edition
+# [ScheduleBot | Dota Edition](https://mellamopablo.github.io/schedulebot/)
 > A Discord bot that makes scheduling easy
 
 *Note: you're currently viewing the Dota version. This version supports Dota 2 inhouses and its 
