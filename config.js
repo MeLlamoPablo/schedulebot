@@ -7,6 +7,10 @@ module.exports = {
 	// The bot's command prefix. The bot will recognize as command any message that begins with it.
 	// i.e: "-schedulebot foo" will trigger the command "foo",
 	//      whereas "ScheduleBot foo" will do nothing at all.
+	//
+	// If you replace YOUR_BOT_USER_ID with your bot's user ID, the prefix will be a mention to
+	// your bot. You can get that ID in https://discordapp.com/developers/applications/me/
+	// (click on your application, and find it under "App Details" > "Client ID"
 	prefix:  "<@YOUR_BOT_USER_ID>",
 
 	// This is a readable version of the prefix. Generally, this is the same as prefix, but if
