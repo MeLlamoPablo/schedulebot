@@ -9,6 +9,11 @@ bot always online. To avoid that, we could use a PaaS provider, such as
 
 ## Deployment instructions
 
+To deploy ScheduleBot to Heroku, you will need:
+
+* [NodeJS](https://nodejs.org/en/download/) 6 or above.
+* [git](https://git-scm.com/downloads).
+
 First, [sign up to Heroku](https://signup.heroku.com/), and create an app. You may deploy your
 bot using the Heroku CLI, or GitHub. I recommend GitHub, as it's easier. If you choose Heroku
 CLI, follow the instructions there. If you choose GitHub, first fork this repository. Then, clone
@@ -51,9 +56,21 @@ $ npm run setup
 Follow the script's instructions. After you're done, you're ready to push your repo to GitHub:
 
 ```sh
-$ git add . && git commit -m "Ready to deploy"
+$ git add .
+$ git commit -m "Ready to deploy"
 $ git push --all
 ```
+
+Before deploying your bot, let's add your bot user to your Discord server. In order to do so, go 
+to the [Discord dev center](https://discordapp.com/developers/applications/me/) and click on your
+application, then grab your Client ID. Then go to the following link in your browser:
+ 
+```
+https://discordapp.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot&permissions=0x00002000
+```
+
+Replace `YOUR_CLIENT_ID` by your bot's client ID. Don't forget to grant the "Manage Messages" 
+permission.
 
 Now, in your Heroku dashboard, go to `Deploy`, select `GitHub`, connect your account, and add
 your fork. Be sure to select the `heroku` branch.
