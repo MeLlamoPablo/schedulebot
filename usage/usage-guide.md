@@ -23,12 +23,17 @@ The `create` commands is used (you guessed it) to create events. It takes two ar
 * `name` is the name of the event. It can be anything you want, but be careful: if you have 
 spaces in your name, you must use either "double quotes" or 'single quotes'. Otherwise the bot 
 would only recognize the first word as the name.
-* `time` is the date and time of the event, in this format: `DD/MM/YYYY HH:mm`. If the 
-`--timezone` flag is specified, the time is converted from that time zone to the default time 
-zone specified in `config.js:default_timezone`.
+* `time` is the date and time of the event, in the format specified in `config.js:time_format`.
 
-	If the `--timestamp` flag is specified, this argument will be parsed as an
-	[UNIX Timestamp](https://en.wikipedia.org/wiki/Unix_time) instead of a date string.
+It also accepts the following flags:
+
+* `--limit` (alias `-l`) determines the maximum number of people that can attend the event. Once 
+the limit has been reached, further sign ups are rejected. An event must have a limit of 10 or 
+greater to be eligible for hosting an inhouse.
+* `--timezone` (alias `-t`) determines the time zone in which the `time` argument is being 
+specified.
+* `--timestamp` (alias `-u`), if passed, determines that the `time` is being passed as an
+[UNIX Timestamp](https://en.wikipedia.org/wiki/Unix_time) instead of a date string.
 
 Examples:
 
@@ -95,7 +100,7 @@ time comes, the lobby will automatically be created by the bot, and every user w
 their attendance will be automatically invited.
 
 The preferred method for joining is through a bot invite, because only the people who have 
-confirmed their attendance are elegible for one. This way, the people who sign up first are the 
+confirmed their attendance are eligible for one. This way, the people who sign up first are the 
 ones who have the guarantee to play, because further sign ups would be rejected for exceeding the
 limit.
  
@@ -172,11 +177,11 @@ accepted time zones.
 ## The admin level
 
 The admin level is only accessible for bot admins. The first bot admin is configured when you run
- `npm run setup`. Aditional admins can be added with `add-admin`.
+ `npm run setup`. Additional admins can be added with `add-admin`.
 
 ### add-admin / remove-admin
 
-These commands, as their name says, add or remove addmins to/from the admin list. They only take 
+These commands, as their name says, add or remove admins to/from the admin list. They only take 
 one argument:
 
 * `user` is the user you want added/removed. You must **mention** the user, meaning that you'd 
@@ -192,7 +197,7 @@ schedulebot-admin remove-admin @OldAdmin#9876
 ### blacklist-add / blacklist-remove
 
 These commands add or remove users to the blacklist. Blacklisted users are banned from using the 
-bot, and won't be able to execute any commands. Be careful, if you blacklist an admmin, they will
+bot, and won't be able to execute any commands. Be careful, if you blacklist an admin, they will
 still be able to execute admin commands, so you should also run `remove-admin`.
  
 As the previous commands, these also take only one argument:
