@@ -23,12 +23,16 @@ The `create` commands is used (you guessed it) to create events. It takes two ar
 * `name` is the name of the event. It can be anything you want, but be careful: if you have 
 spaces in your name, you must use either "double quotes" or 'single quotes'. Otherwise the bot 
 would only recognize the first word as the name.
-* `time` is the date and time of the event, in this format: `DD/MM/YYYY HH:mm`. If the 
-`--timezone` flag is specified, the time is converted from that time zone to the default time 
-zone specified in `config.js:default_timezone`.
+* `time` is the date and time of the event, in this format: `DD/MM/YYYY HH:mm`.
 
-	If the `--timestamp` flag is specified, this argument will be parsed as an
-	[UNIX Timestamp](https://en.wikipedia.org/wiki/Unix_time) instead of a date string.
+It also accepts the following flags:
+
+* `--limit` (alias `-l`) determines the maximum number of people that can attend the event. Once 
+the limit has been reached, further sign ups are rejected.
+* `--timezone` (alias `-t`) determines the time zone in which the `time` argument is being 
+specified.
+* `--timestamp` (alias `-u`), if passed, determines that the `time` is being passed as an
+[UNIX Timestamp](https://en.wikipedia.org/wiki/Unix_time) instead of a date string.
 
 Examples:
 
