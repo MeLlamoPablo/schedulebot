@@ -41,6 +41,14 @@ module.exports = {
 	// List of accepted timezones: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 	default_timezone: "Europe/Madrid",
 
+	// The time format that will be used for the create command. The bot will read a date string
+	// and will attempt to interpret it as the following format. If the passed time doesn't
+	// match the format, the command will result in an error.
+	//
+	// A list of valid format tokens can be found at:
+	// http://momentjs.com/docs/#year-month-and-day-tokens
+	time_format: "DD/MM/YYYY HH:mm",
+
 	// If this option is enabled, the bot will delete the message that triggered it, and its own
 	// response, after the specified amount of time has passed.
 	// Enable this if you don't want your channel to be flooded with bot messages.
