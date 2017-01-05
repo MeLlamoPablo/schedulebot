@@ -7,7 +7,7 @@ module.exports = {
 	// The bot's command prefix. The bot will recognize as command any message that begins with it.
 	// i.e: "-schedulebot foo" will trigger the command "foo",
 	//      whereas "ScheduleBot foo" will do nothing at all.
-	prefix:  "<@YOUR_BOT_USER_ID>",
+	prefix:  "<@247389612799033345>",
 
 	// This is a readable version of the prefix. Generally, this is the same as prefix, but if
 	// you set prefix to be in the form of "<@YOUR_BOT_USER_ID>", you'd need to set readable_prefix
@@ -17,7 +17,7 @@ module.exports = {
 	// ScheduleBot's case), the string "<@YOUR_BOT_USER_ID>" doesn't get parsed as a mention.
 	// So in order not to mislead the user, we have a separate option for a readable version of
 	// our prefix.
-	readable_prefix: "@YOUR_BOT_USER_NAME",
+	readable_prefix: "@ScheduleBot",
 
 	// Admin app settings
 	admin_app: {
@@ -27,7 +27,7 @@ module.exports = {
 
 	// The master channel
 	// The bot will announce the events to this channel. It won't listen to other channels.
-	master_channel: "YOUR_MASTER_CHANNEL",
+	master_channel: "250696792973246464",
 
 	// Events are considered "happening" for a margin of time, where users can see that the event
 	// is happening right now. During that time, the event is not considered expired yet.+
@@ -39,7 +39,7 @@ module.exports = {
 	update_interval: 60000, // In milliseconds
 
 	// List of accepted timezones: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-	default_timezone: "Europe/Madrid",
+	default_timezone: "Europe/Berlin",
 
 	// If this option is enabled, the bot will delete the message that triggered it, and its own
 	// response, after the specified amount of time has passed.
@@ -62,7 +62,7 @@ module.exports = {
 		name: "ScheduleBot",
 
 		// The bot's profile URL. It's needed to redirect users to it.
-		profile_url: "http://steamcommunity.com/profiles/YOUR_BOT_ID/"
+		profile_url: "http://steamcommunity.com/profiles/76561198350597033/"
 	},
 
 	dota: {
