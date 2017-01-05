@@ -89,7 +89,14 @@ module.exports = {
 		// --server flag to the add-inhouse command.
 		// Go to that command's file (Or type -schedulebot add-ihouse --help)
 		// to see possible values.
-		defaultServer: "Luxembourg"
+		defaultServer: "Luxembourg",
+
+		// If enabled is true, the bot will ticket any lobbies using the provided league id.
+		// Make sure that the steam bot is an admin of that league.
+		ticketing: {
+			enabled: false,
+			league_id: 12345
+		}
 	}
 };
 
