@@ -1,3 +1,4 @@
+--TODO update this script as well
 CREATE TABLE public.config
 (
   bot_token TEXT,

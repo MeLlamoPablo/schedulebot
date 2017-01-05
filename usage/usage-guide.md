@@ -24,6 +24,7 @@ The `create` commands is used (you guessed it) to create events. It takes two ar
 spaces in your name, you must use either "double quotes" or 'single quotes'. Otherwise the bot 
 would only recognize the first word as the name.
 * `time` is the date and time of the event, in the format specified in `config.js:time_format`.
+	* Instead of a time string, the keyword "now" can be used to create an instant event.
 
 It also accepts the following flags:
 
@@ -44,6 +45,14 @@ Examples:
 * Creating an event with a name containing spaces:
 	```
 	@ScheduleBot create "My Custom Event" "01/01/2016 15:00"
+	```
+* Creating an event with a custom limit.
+	```
+	@ScheduleBot create "My Custom Event" "01/01/2016 15:00" --limit 15
+	```
+* Creating an instant event
+	```
+	@ScheduleBot create "My Custom Event" now
 	```
 * Creating an event in a custom time zone:
 	```
