@@ -134,7 +134,7 @@ It also accepts the following flags:
 the `--help` flag to see a list containing all the possible options.
 * `--server` (alias `-s`) determines the server of the inhouse lobby. Run the command with 
 the `--help` flag to see a list containing all the possible options.
-* `--no-balance` (alias `-n`) disables, if passed, the automatic team balance that occurs before 
+* `--nobalance` (alias `-n`) disables, if passed, the automatic team balance that occurs before 
 game launch.
 
 The `add-inhouse` command can also be run over an event with an already defined inhouse to edit 
@@ -146,7 +146,7 @@ Example:
 > @ScheduleBot create Test "01/01/2016 15:00"
 > @DearUser,
   Your event Test was created with ID #1.
-> @Schedulebot add-inhouse 1 --gamemode "All Pick" --server "Luxembourg" --no-balance
+> @Schedulebot add-inhouse 1 --gamemode "All Pick" --server "Luxembourg" --nobalance
 ```
 
 ### resend-invite
