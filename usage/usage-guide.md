@@ -194,7 +194,7 @@ These commands, as their name says, add or remove admins to/from the admin list.
 one argument:
 
 * `user` is the user you want added/removed. You must **mention** the user, meaning that you'd 
-have to type their name like this: `@NewAdmin#1234`.
+have to type their name like this: `@User#1234`.
 
 Examples:
 
@@ -212,7 +212,7 @@ still be able to execute admin commands, so you should also run `remove-admin`.
 As the previous commands, these also take only one argument:
 
 * `user` is the user you want added/removed. You must **mention** the user, meaning that you'd 
-have to type their name like this: `@NewAdmin#1234`.
+have to type their name like this: `@User#1234`.
 
 Example
 
@@ -221,10 +221,32 @@ schedulebot-admin blacklist-add @IDontLikeThisGuy#1234
 schedulebot-admin blacklist-remove @PromiseToBeGood#9876
 ```
 
+### kick
+
+The `kick` command is used to force an user to deny their attendance for an event. This is useful
+to keep unwanted players from certain events. Please bear in mind that:
+
+* The kicked user will be notified.
+* The kicked user can rejoin at any time. To prevent them from doing so, blacklist them with the 
+`blacklist-add` command.
+
+The `kick` commands takes two arguments:
+
+* `user` is the user you want added/removed. You must **mention** the user, meaning that you'd 
+have to type their name like this: `@User#1234`.
+* `id` is the ID of the event you are referring to.
+
+Example
+
+```
+schedulebot-admin kick @FuckOff#1234 1
+```
+
+
 ### remove-event
 
-The `remove-event` is used to permanently delete an event and all of its associated confirms. It 
-only takes one argument:
+The `remove-event` command is used to permanently delete an event and all of its associated 
+confirms. It only takes one argument:
 
 * `id` is the ID of the event you are referring to.
 
