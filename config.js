@@ -69,6 +69,23 @@ module.exports = {
 	// This also requires the "manage messages" permission
 	disallow_talking: true,
 
+	// quick-inhouse command
+	// This command creates an instant lobby and adds an inhouse with the default values.
+	// It is the equivalent of running "@ScheduleBot create (event_name) now" and
+	// "@ScheduleBot add-inhouse (id)".
+	quick_inhouse: {
+		// If false, the command won't be included in the bot, and won't even show on the help.
+		enabled: true,
+
+		// The command name. If you changed this to "qh", the command would be executed as
+		// @ScheduleBot qh
+		command_name: "quick-inhouse",
+
+		// The created event's name, which is then used as a lobby name. (So you could customize
+		// this with your guild's name, for instance)
+		event_name: "Inhouse"
+	},
+
 	db: {
 		"user": "",
 		"password": "",
