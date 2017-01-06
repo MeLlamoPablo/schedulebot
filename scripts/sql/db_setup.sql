@@ -28,7 +28,8 @@ CREATE TABLE events
     "limit" INTEGER DEFAULT 5,
     waiting JSON,
     inhouse JSON,
-    lobby_ended BOOLEAN DEFAULT false NOT NULL
+    instant BOOLEAN DEFAULT FALSE NOT NULL,
+    lobby_status INT DEFAULT 1 NOT NULL
 );
 
 CREATE TABLE confirms

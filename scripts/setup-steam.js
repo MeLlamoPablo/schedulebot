@@ -1,10 +1,12 @@
+const dbDetailsGen = require("./shared/db-details");
 const fs       = require("fs");
 const inquirer = require("inquirer");
 const pg       = require("pg");
-let cfg        = require("./config");
+let cfg        = require("../config");
 
 // So that we don't get a "can't read property of undefined" error
 cfg.db = cfg.db || {};
+let dbDetails = dbDetailsGen(cfg.db);
 
 console.log("Hello! Welcome to the ScheduleBot setup script - Steam edition!\n" +
 	"This script assumes that you've already created your database structure with:\n\n" +
@@ -16,38 +18,7 @@ console.log("Hello! Welcome to the ScheduleBot setup script - Steam edition!\n" 
 	"This script will store your Steam bot credentials in the database,\n" +
 	"so first we need to connect to it.\n");
 
-inquirer.prompt([
-	{
-		type: "input",
-		name: "db_host",
-		message: "Host",
-		default: cfg.db.host || null
-	},
-	{
-		type: "input",
-		name: "db_database",
-		message: "Database",
-		default: cfg.db.database || null
-	},
-	{
-		type: "input",
-		name: "db_user",
-		message: "User",
-		default: cfg.db.user || null
-	},
-	{
-		type: "password",
-		name: "db_password",
-		message: "Password",
-		default: cfg.db.password || null
-	},
-	{
-		type: "confirm",
-		name: "db_ssl",
-		message: "Use SSL?",
-		default: true
-	}
-]).then(answers => {
+inquirer.prompt(dbDetails).then(answers => {
 
 	pg.defaults.ssl = answers.db_ssl;
 

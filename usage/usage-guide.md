@@ -23,12 +23,18 @@ The `create` commands is used (you guessed it) to create events. It takes two ar
 * `name` is the name of the event. It can be anything you want, but be careful: if you have 
 spaces in your name, you must use either "double quotes" or 'single quotes'. Otherwise the bot 
 would only recognize the first word as the name.
-* `time` is the date and time of the event, in this format: `DD/MM/YYYY HH:mm`. If the 
-`--timezone` flag is specified, the time is converted from that time zone to the default time 
-zone specified in `config.js:default_timezone`.
+* `time` is the date and time of the event, in the format specified in `config.js:time_format`.
+	* Instead of a time string, the keyword "now" can be used to create an instant event.
 
-	If the `--timestamp` flag is specified, this argument will be parsed as an
-	[UNIX Timestamp](https://en.wikipedia.org/wiki/Unix_time) instead of a date string.
+It also accepts the following flags:
+
+* `--limit` (alias `-l`) determines the maximum number of people that can attend the event. Once 
+the limit has been reached, further sign ups are rejected. An event must have a limit of 10 or 
+greater to be eligible for hosting an inhouse.
+* `--timezone` (alias `-t`) determines the time zone in which the `time` argument is being 
+specified.
+* `--timestamp` (alias `-u`), if passed, determines that the `time` is being passed as an
+[UNIX Timestamp](https://en.wikipedia.org/wiki/Unix_time) instead of a date string.
 
 Examples:
 
@@ -39,6 +45,14 @@ Examples:
 * Creating an event with a name containing spaces:
 	```
 	@ScheduleBot create "My Custom Event" "01/01/2016 15:00"
+	```
+* Creating an event with a custom limit.
+	```
+	@ScheduleBot create "My Custom Event" "01/01/2016 15:00" --limit 15
+	```
+* Creating an instant event
+	```
+	@ScheduleBot create "My Custom Event" now
 	```
 * Creating an event in a custom time zone:
 	```
@@ -95,7 +109,7 @@ time comes, the lobby will automatically be created by the bot, and every user w
 their attendance will be automatically invited.
 
 The preferred method for joining is through a bot invite, because only the people who have 
-confirmed their attendance are elegible for one. This way, the people who sign up first are the 
+confirmed their attendance are eligible for one. This way, the people who sign up first are the 
 ones who have the guarantee to play, because further sign ups would be rejected for exceeding the
 limit.
  
@@ -120,7 +134,7 @@ It also accepts the following flags:
 the `--help` flag to see a list containing all the possible options.
 * `--server` (alias `-s`) determines the server of the inhouse lobby. Run the command with 
 the `--help` flag to see a list containing all the possible options.
-* `--no-balance` (alias `-n`) disables, if passed, the automatic team balance that occurs before 
+* `--nobalance` (alias `-n`) disables, if passed, the automatic team balance that occurs before 
 game launch.
 
 The `add-inhouse` command can also be run over an event with an already defined inhouse to edit 
@@ -132,7 +146,7 @@ Example:
 > @ScheduleBot create Test "01/01/2016 15:00"
 > @DearUser,
   Your event Test was created with ID #1.
-> @Schedulebot add-inhouse 1 --gamemode "All Pick" --server "Luxembourg" --no-balance
+> @Schedulebot add-inhouse 1 --gamemode "All Pick" --server "Luxembourg" --nobalance
 ```
 
 ### resend-invite
@@ -172,15 +186,15 @@ accepted time zones.
 ## The admin level
 
 The admin level is only accessible for bot admins. The first bot admin is configured when you run
- `npm run setup`. Aditional admins can be added with `add-admin`.
+ `npm run setup`. Additional admins can be added with `add-admin`.
 
 ### add-admin / remove-admin
 
-These commands, as their name says, add or remove addmins to/from the admin list. They only take 
+These commands, as their name says, add or remove admins to/from the admin list. They only take 
 one argument:
 
 * `user` is the user you want added/removed. You must **mention** the user, meaning that you'd 
-have to type their name like this: `@NewAdmin#1234`.
+have to type their name like this: `@User#1234`.
 
 Examples:
 
@@ -192,13 +206,13 @@ schedulebot-admin remove-admin @OldAdmin#9876
 ### blacklist-add / blacklist-remove
 
 These commands add or remove users to the blacklist. Blacklisted users are banned from using the 
-bot, and won't be able to execute any commands. Be careful, if you blacklist an admmin, they will
+bot, and won't be able to execute any commands. Be careful, if you blacklist an admin, they will
 still be able to execute admin commands, so you should also run `remove-admin`.
  
 As the previous commands, these also take only one argument:
 
 * `user` is the user you want added/removed. You must **mention** the user, meaning that you'd 
-have to type their name like this: `@NewAdmin#1234`.
+have to type their name like this: `@User#1234`.
 
 Example
 
@@ -207,10 +221,32 @@ schedulebot-admin blacklist-add @IDontLikeThisGuy#1234
 schedulebot-admin blacklist-remove @PromiseToBeGood#9876
 ```
 
+### kick
+
+The `kick` command is used to force an user to deny their attendance for an event. This is useful
+to keep unwanted players from certain events. Please bear in mind that:
+
+* The kicked user will be notified.
+* The kicked user can rejoin at any time. To prevent them from doing so, blacklist them with the 
+`blacklist-add` command.
+
+The `kick` commands takes two arguments:
+
+* `user` is the user you want added/removed. You must **mention** the user, meaning that you'd 
+have to type their name like this: `@User#1234`.
+* `id` is the ID of the event you are referring to.
+
+Example
+
+```
+schedulebot-admin kick @FuckOff#1234 1
+```
+
+
 ### remove-event
 
-The `remove-event` is used to permanently delete an event and all of its associated confirms. It 
-only takes one argument:
+The `remove-event` command is used to permanently delete an event and all of its associated 
+confirms. It only takes one argument:
 
 * `id` is the ID of the event you are referring to.
 
