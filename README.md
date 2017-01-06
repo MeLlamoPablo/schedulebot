@@ -121,6 +121,10 @@ always online. To avoid that, we could use a PaaS provider, such as Heroku. Hero
 good enough for hosting our bot. To learn how to deploy the bot to heroku,
 [go here](https://github.com/MeLlamoPablo/schedulebot/tree/heroku-dota#heroku-deployment-guide).
 
+## Changelog
+
+The change log can be found at the [releases section](https://github.com/MeLlamoPablo/schedulebot/releases).
+
 ## License
 
 Apache-2.0 © [Pablo Rodríguez](https://github.com/MeLlamoPablo)
