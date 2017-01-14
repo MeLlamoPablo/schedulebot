@@ -1,3 +1,4 @@
+-- TODO MODIFY THIS FILE AS WELL
 CREATE TABLE public.config
 (
   bot_token TEXT,
