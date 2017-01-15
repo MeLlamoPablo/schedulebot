@@ -61,7 +61,7 @@ module.exports = {
 	// More info: https://discordapp.com/developers/docs/topics/permissions
 	delete_after_reply: {
 		enabled: true,
-		time: 60000, // In milliseconds
+		time: 60000 // In milliseconds
 	},
 
 	// If true, it will delete any message that is not a command from the master channel.
@@ -94,17 +94,17 @@ module.exports = {
 	},
 
 	steam: {
-		// The name that the Steam bot will take
+		// The name that the Steam bots will take. It will be appended with "#id" as in "#1".
 		name: "ScheduleBot",
 
-		// The bot's profile URL. It's needed to redirect users to it.
+		// The first bot's profile URL. It's needed to redirect users to it.
 		profile_url: "http://steamcommunity.com/profiles/YOUR_BOT_ID/"
 	},
 
 	dota: {
 		// The default inhouse server, which will be used if the user doesn't pass the
 		// --server flag to the add-inhouse command.
-		// Go to that command's file (Or type -schedulebot add-ihouse --help)
+		// Go to that command's file (Or type -schedulebot add-inhouse --help)
 		// to see possible values.
 		defaultServer: "Luxembourg",
 
@@ -113,6 +113,25 @@ module.exports = {
 		ticketing: {
 			enabled: false,
 			league_id: 12345
+		},
+
+		// If enabled is true, the bot will fetch MMR from OpenDota for every user that links
+		// their Steam account, and display it in event summaries.
+		//
+		// The user must have the "Expose Public Match Data" option enabled, must be displaying
+		// their MMR on their Dota profile, and must have signed in OpenDota at least once, using
+		// Steam. If OpenDota doesn't know the user MMR, ScheduleBot won't either, and will display
+		// a "MMR Unknown message"
+		mmr: {
+			enabled: true,
+
+			// If enforce is true, the bot will only allow people who have their MMR publicly
+			// exposed in OpenDota to confirm any events. This is useful for competitive leagues
+			// who need to control MMR; it's recommended to leave it false otherwise.
+			enforce: false,
+
+			// ScheduleBot will update all users' MMR on each interval.
+			update_interval: 8 // In hours
 		}
 	}
 };

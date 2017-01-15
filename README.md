@@ -100,9 +100,20 @@ used `git` to clone the repository, this is easy:
 $ git pull --all
 ```
 
-If you forked this repo to deploy to Heroku, this will not work, because it's pulling from your repo, and not from this one. To solve that, first [configure this repo (MeLlamoPablo/schedulebot) as a remote for your fork (YOUR_GITHUB_USERNAME/schedulebot)](https://help.github.com/articles/configuring-a-remote-for-a-fork/). Then, [fetch this repo](https://help.github.com/articles/syncing-a-fork/) *(change `master` to `dota` or `heroku-dota`, depending on what branch you're working with)*.
+If you forked this repo to deploy to Heroku, this will not work, because it's pulling from your
+repo, and not from this one. To solve that, first [configure this repo (MeLlamoPablo/schedulebot)
+as a remote for your fork (YOUR_GITHUB_USERNAME/schedulebot)](https://help.github.com/articles/configuring-a-remote-for-a-fork/).
+Then, [fetch this repo](https://help.github.com/articles/syncing-a-fork/)
+*(change `master` to `dota` or `heroku-dota`, depending on what branch you're working with)*.
 
-However, after this your bot is not ready yet. A database update is also required:
+After that, perform another npm install to make sure that you get any new dependencies or update
+existing ones:
+
+```
+$ npm install
+```
+
+However, after all of this your bot is not ready yet. A database update is also required:
 
 ```sh
 $ npm run update
