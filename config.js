@@ -132,7 +132,11 @@ module.exports = {
 
 			// ScheduleBot will update all users' MMR on each interval.
 			update_interval: 8 // In hours
-		}
+		},
+
+		// In a competitive league, you might want to change this with "match" or "game",
+		// since it's not technically an inhouse. TODO apply this in more locations
+		game_generic_name: "inhouse"
 	}
 };
 

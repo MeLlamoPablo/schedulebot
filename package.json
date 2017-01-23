@@ -35,7 +35,7 @@
   "dependencies": {
     "clapp": "^1.1.0",
     "discord.js": "^10.0.1",
-    "dota2": "git+https://github.com/Arcana/node-dota2.git#3033865a5296579f6deb560d298f6a812a2ec4d4",
+    "dota2": "git+https://github.com/Arcana/node-dota2.git#37545d9b6e48812d8b98bb78809132957a293842",
     "inquirer": "^1.2.2",
     "knex": "^0.12.6",
     "moment": "^2.15.1",
