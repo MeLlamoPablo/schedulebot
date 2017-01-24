@@ -1,53 +1,45 @@
 {
-  "name": "schedulebot",
-  "version": "1.2.0",
-  "description": "A Discord bot that makes scheduling easy",
-  "homepage": "https://github.com/mellamopablo/schedulebot#readme",
-  "author": "Pablo Rodríguez <pabloviolin8@gmail.com> (https://github.com/MeLlamoPablo)",
-  "files": [
-    "lib"
-  ],
-  "main": "lib/index.js",
-  "keywords": [
-    "discord bot",
-    "scheduling",
-    "schedule"
-  ],
-  "scripts": {
-    "bot": "node ./lib/index.js",
-    "setup": "node ./scripts/setup.js",
-    "setup-steam": "node ./scripts/setup-steam.js",
-    "update": "node ./scripts/update.js",
-    "postinstall": "node ./scripts/postinstall.js",
-    "prepublish": "gulp nsp"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-nsp": "^2.1.0",
-    "gulp-plumber": "^1.0.0",
-    "semver": "^5.3.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mellamopablo/schedulebot.git"
-  },
-  "license": "Apache-2.0",
-  "dependencies": {
-    "clapp": "^1.1.0",
-    "discord.js": "^10.0.1",
-    "dota2": "^4.2.1",
-    "inquirer": "^1.2.2",
-    "knex": "^0.12.6",
-    "moment": "^2.15.1",
-    "moment-timezone": "^0.5.6",
-    "pg": "^6.1.0",
-    "request": "^2.79.0",
-    "request-promise": "^4.1.1",
-    "steam": "^1.4.0",
-    "steam-verificator": "git+https://github.com/MeLlamoPablo/steam-verificator.git",
-    "steamid": "^1.1.0"
-  },
-  "bugs": {
-    "url": "https://github.com/mellamopablo/schedulebot/issues"
-  }
+	"name":"schedulebot",
+	"version":"1.0.2",
+	"description":"A Discord bot that makes scheduling easy",
+	"homepage":"https://github.com/mellamopablo/schedulebot#readme",
+	"author":"Pablo Rodríguez <pabloviolin8@gmail.com> (https://github.com/MeLlamoPablo)",
+	"files":[
+		"lib"
+	],
+	"main":"lib/index.js",
+	"keywords":[
+		"discord bot",
+		"scheduling",
+		"schedule"
+	],
+	"scripts":{
+		"bot":"node ./lib/index.js",
+		"setup":"node ./setup.js",
+    "update":"node ./scripts/update.js",
+		"prepublish":"gulp nsp",
+		"postinstall":"node ./postinstall.js"
+	},
+	"devDependencies":{
+		"gulp":"^3.9.0",
+		"gulp-plumber":"^1.0.0",
+		"gulp-nsp":"^2.1.0"
+	},
+	"repository":{
+		"type":"git",
+		"url":"git+https://github.com/mellamopablo/schedulebot.git"
+	},
+	"license":"Apache-2.0",
+	"dependencies":{
+		"clapp":"^1.1.0",
+		"discord.js":"^10.0.1",
+		"inquirer":"^1.2.2",
+		"knex":"^0.12.6",
+		"moment":"^2.15.1",
+		"moment-timezone":"^0.5.6",
+		"pg":"^6.1.0"
+	},
+	"bugs":{
+		"url":"https://github.com/mellamopablo/schedulebot/issues"
+	}
 }

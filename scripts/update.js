@@ -137,7 +137,7 @@ function loadScripts(fileNames) {
 	return new Promise((fulfill, reject) => {
 		let readScriptPromisess = [];
 		for (let i = 0; i < fileNames.length; i++) {
-			readScriptPromisess.push(readFile("./scripts/sql/" + fileNames[i]));
+			readScriptPromisess.push(readFile("./sql/" + fileNames[i]));
 		}
 
 		Promise.all(readScriptPromisess).then(scripts => {
