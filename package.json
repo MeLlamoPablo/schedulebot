@@ -49,8 +49,5 @@
   },
   "bugs": {
     "url": "https://github.com/mellamopablo/schedulebot/issues"
-  },
-  "engines":{
-    "node": "6.3.1"
   }
 }

@@ -90,6 +90,13 @@ module.exports = {
 		event_name: "Inhouse"
 	},
 
+	db: {
+		"user": "",
+		"password": "",
+		"host": "",
+		"database": ""
+	},
+
 	steam: {
 		// The name that the Steam bots will take. It will be appended with "#id" as in "#1".
 		name: "ScheduleBot",
