@@ -1,11 +1,16 @@
--- TODO MODIFY THIS FILE AS WELL
 CREATE TABLE public.config
 (
   bot_token TEXT,
-  steam_username TEXT,
-  steam_password TEXT,
-  steam_guard_code TEXT,
-  steam_sentry_file BYTEA
+);
+
+CREATE TABLE public.steam_bots
+(
+    id SERIAL PRIMARY KEY NOT NULL,
+    username TEXT DEFAULT NULL,
+    password TEXT DEFAULT NULL,
+    steam_guard BOOLEAN DEFAULT false NOT NULL,
+    steam_guard_code TEXT DEFAULT NULL,
+    sentry_file BYTEA DEFAULT NULL
 );
 
 CREATE TABLE public.admins
@@ -30,7 +35,9 @@ CREATE TABLE events
     waiting JSON,
     inhouse JSON,
     instant BOOLEAN DEFAULT FALSE NOT NULL,
-    lobby_status INT DEFAULT 1 NOT NULL
+    lobby_status INT DEFAULT 1 NOT NULL,
+    lobby_bot_id INT DEFAULT NULL  NULL,
+    dota_match_id TEXT DEFAULT NULL  NULL
 );
 
 CREATE TABLE confirms
@@ -45,5 +52,6 @@ CREATE TABLE confirms
 CREATE TABLE public.users
 (
   discord_id TEXT PRIMARY KEY NOT NULL,
-  steam_id TEXT
+  steam_id TEXT,
+  solo_mmr INT DEFAULT NULL  NULL
 );

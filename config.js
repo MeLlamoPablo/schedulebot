@@ -69,6 +69,10 @@ module.exports = {
 	// This also requires the "manage messages" permission
 	disallow_talking: true,
 
+	// If false, all (non-blacklisted) users will be able to add inhouses to created events.
+	// If true, only admins will be able to do so.
+	add_inhouse_is_admin_command: false,
+
 	// quick-inhouse command
 	// This command creates an instant lobby and adds an inhouse with the default values.
 	// It is the equivalent of running "@ScheduleBot create (event_name) now" and
@@ -106,7 +110,13 @@ module.exports = {
 		// --server flag to the add-inhouse command.
 		// Go to that command's file (Or type -schedulebot add-inhouse --help)
 		// to see possible values.
-		defaultServer: "Luxembourg",
+		default_server: "Luxembourg",
+
+		// If false, lobbies will be started automatically when ten people join it
+		// (spectators, casters and unassigned players not counted).
+		// If true, the games will only be able to be started with the admin command
+		// schedulebot-admin force-lobby-start (event)
+		disable_autostart: false,
 
 		// If enabled is true, the bot will ticket any lobbies using the provided league id.
 		// Make sure that the steam bot is an admin of that league.
@@ -135,7 +145,10 @@ module.exports = {
 		},
 
 		// In a competitive league, you might want to change this with "match" or "game",
-		// since it's not technically an inhouse. TODO apply this in more locations
+		// since it's not technically an inhouse.
+		//
+		// CAREFUL! This will change the name of the command "add-inhouse"
+		// to "add-whatever_you_write"
 		game_generic_name: "inhouse"
 	}
 };
