@@ -1,54 +1,24 @@
-const fs       = require("fs");
-const inquirer = require("inquirer");
-const pg       = require("pg");
-var cfg        = require("./config");
-
+const dbDetailsGen = require("./shared/db-details");
+const fs           = require("fs");
+const inquirer     = require("inquirer");
+const pg           = require("pg");
+let cfg            = require("../config");
 
 // So that we don't get a "can't read property of undefined" error
 cfg.db = cfg.db || {};
+let dbDetails = dbDetailsGen(cfg.db);
 
 console.log("Hello! Welcome to the ScheduleBot setup script.\n" +
 	"This script will create your database structure to get ScheduleBot working.\n" +
 	"First, let's connect to your postgres database. Enter your db info:\n");
 
-inquirer.prompt([
-	{
-		type: "input",
-		name: "db_host",
-		message: "Host",
-		default: cfg.db.host || null
-	},
-	{
-		type: "input",
-		name: "db_database",
-		message: "Database",
-		default: cfg.db.database || null
-	},
-	{
-		type: "input",
-		name: "db_user",
-		message: "User",
-		default: cfg.db.user || null
-	},
-	{
-		type: "password",
-		name: "db_password",
-		message: "Password",
-		default: cfg.db.password || null
-	},
-	{
-		type: "confirm",
-		name: "db_ssl",
-		message: "Use SSL?",
-		default: true
-	}
-]).then(answers => {
+inquirer.prompt(dbDetails).then(answers => {
 	pg.defaults.ssl = answers.db_ssl;
 
-	var conStr = "postgres://" + answers.db_user + ":" + answers.db_password
+	let conStr = "postgres://" + answers.db_user + ":" + answers.db_password
 		+ "@" + answers.db_host + "/" + answers.db_database;
 
-	var client = new pg.Client(conStr);
+	let client = new pg.Client(conStr);
 
 	client.connect(err => {
 		if (!err) {
@@ -154,8 +124,9 @@ inquirer.prompt([
 
 function createDbStructure(client) {
 	return new Promise((fulfill, reject) => {
+		let sql;
 		try {
-			var sql = fs.readFileSync("./db_setup.sql", {encoding: "utf-8"});
+			sql = fs.readFileSync("./scripts/sql/db_setup.sql", {encoding: "utf-8"});
 		} catch (err) {
 			reject(err);
 		}
