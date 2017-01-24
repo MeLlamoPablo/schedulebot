@@ -134,6 +134,9 @@ It also accepts the following flags:
 the `--help` flag to see a list containing all the possible options.
 * `--server` (alias `-s`) determines the server of the inhouse lobby. Run the command with 
 the `--help` flag to see a list containing all the possible options.
+* `--cmpick` (alias `-p`) determines which side gets the first pick in Captains Mode. It can be
+either `Radiant`, `Dire`, or `Random` (default value). This only works if `--gamemode` is set to
+`Captains Mode`, otherwise it's ignored.
 * `--nobalance` (alias `-n`) disables, if passed, the automatic team balance that occurs before 
 game launch.
 
@@ -155,12 +158,14 @@ Example:
 
 The `resend-invite` command is used to resend an invite to the current lobby to the player 
 invoking the command. This is to be used in case the invite wasn't sent automatically for some 
-reason. It takes no arguments.
+reason. It takes one argument:
+
+* `id` is the ID of the event you are referring to.
 
 Example:
 
 ```
-@ScheduleBot resend-invite
+@ScheduleBot resend-invite 1
 ```
 
 ### convert
@@ -282,12 +287,14 @@ schedulebot-admin link 1 @team-members
 *(Dota Edition only)*
 
 The `get-lobby` command is used get the current lobby details (lobby name and password) sent 
-to you in a direct messsage. It takes no arguments.
+to you in a direct messsage. It takes one argument:
+
+* `id` is the ID of the event you are referring to.
 
 Example:
 
 ```
-schedulebot-admin get-lobby
+schedulebot-admin get-lobby 1
 ```
 
 ### force-lobby-start
@@ -302,4 +309,15 @@ Example:
 
 ```
 schedulebot-admin force-lobby-start
+```
+
+### status
+
+*(Dota Edition only)*
+
+The `status` command is used to get relevant information about the bot. Currently it shows the
+Discord bot's uptime, and the Dota bots' status (In lobby/Not in lobby).
+
+```
+schedulebot-admin status
 ```
