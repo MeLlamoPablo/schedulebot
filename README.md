@@ -3,7 +3,7 @@
 
 *Note: you're currently viewing the Dota version. This version supports Dota 2 inhouses and its 
 configuration is a bit trickier because you need a Steam Bot. If you're looking for the standard 
-version, [go here](https://github.com/MeLlamoPablo/schedulebot#schedulebot).*
+version, [go here](https://github.com/MeLlamoPablo/schedulebot/tree/master#schedulebot).*
 
 ScheduleBot is a bot that manages events, such as a practice game with your team, or a league
 inhouse, or a tournament match.
@@ -41,7 +41,6 @@ Start by cloning this repo, and then install the dependencies:
 ```sh
 $ git clone https://github.com/MeLlamoPablo/schedulebot.git
 $ cd schedulebot
-$ git checkout dota
 $ npm install
 ```
 
