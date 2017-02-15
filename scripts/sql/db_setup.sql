@@ -1,6 +1,6 @@
 CREATE TABLE public.config
 (
-  bot_token TEXT,
+  bot_token TEXT
 );
 
 CREATE TABLE public.steam_bots
