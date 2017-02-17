@@ -1,6 +1,7 @@
 CREATE TABLE public.config
 (
-  bot_token TEXT
+  bot_token TEXT,
+  config JSON -- TODO include this in a next version file
 );
 
 CREATE TABLE public.steam_bots

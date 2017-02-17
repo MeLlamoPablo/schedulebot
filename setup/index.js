@@ -6,6 +6,8 @@ const inquirer = require("inquirer")
 	, pg       = require("pg")
 	, server   = require("schedulebot-setup");
 
+const port = process.env.PORT || 3000;
+
 let detailsStructure = require("../scripts/shared/db-details")({});
 
 if (process.env.DATABASE_URL) {
@@ -13,7 +15,7 @@ if (process.env.DATABASE_URL) {
 } else {
 	console.log("Hello! Welcome to the ScheduleBot setup server.\n" +
 		"Please enter your PostgreSQL database credentials.\n" +
-		"Then, you will be able to visit the Setup server on http://localhost:3000\n");
+		"Then, you will be able to visit the Setup server on http://localhost:" + port + "\n");
 
 	inquirer.prompt(detailsStructure).then(values => {
 
@@ -36,8 +38,31 @@ function run(connStr, ssl) {
 
 		if (!err) {
 
-			// TODO check if db structure is already created, etc
-			server.run(3000).then(console.log).catch(console.error);
+			let existingData = {};
+
+			dbStructureExists(db)
+				.then(exists => {
+
+					console.log(""); // Newline
+
+					if (exists) {
+						return getConfigFromDb(db)
+							.then(parseConfig)
+							.then(data => existingData = data);
+					} else {
+						return createDbStructure(db);
+					}
+
+				})
+				.then(() => server.run(port, existingData))
+				.then(console.log)
+				.catch(err => {
+
+					console.error("An unexpected error occurred!\n");
+					console.error(err);
+					process.exit(1);
+
+				});
 
 		} else {
 			console.error("Couldn't connect to the database!\n");
@@ -47,6 +72,21 @@ function run(connStr, ssl) {
 
 	});
 
+}
+
+function dbStructureExists(client) {
+	return new Promise((fulfill, reject) => {
+		client.query("select * from information_schema.tables where table_schema = 'public'",
+			(err, result) => {
+				if (!err) {
+
+					fulfill(result.rowCount !== 0);
+
+				} else {
+					reject(err);
+				}
+			});
+	});
 }
 
 function createDbStructure(client) {
@@ -68,4 +108,51 @@ function createDbStructure(client) {
 			}
 		});
 	});
+}
+
+function getConfigFromDb(client) {
+	return new Promise((fulfill, reject) => {
+	    client.query(
+	    	"SELECT config.bot_token, config.config, admins.userid AS adminid " +
+			"FROM config INNER JOIN admins ON 1=1 LIMIT 1;" +
+			"SELECT * FROM steam_bots",
+			(err, result) => {
+	    		if (!err) {
+	    			fulfill(result.rows);
+				} else {
+	    			reject(err);
+				}
+			}
+		)
+	});
+}
+
+function parseConfig(rows) {
+	let result = {
+		discord: {
+			bot: {},
+			admin: {}
+		},
+		settings: {},
+		steamBots: []
+	};
+
+	if (rows[0]) {
+		result.discord.bot.token = rows[0].bot_token;
+		result.discord.admin.id = rows[0].adminid;
+		result.settings = rows[0].config;
+
+		if (rows[1]) {
+			for (let i = 1; i < rows.length; i++) {
+				result.steamBots.push({
+					username: rows[i].username,
+					password: rows[i].password,
+					steamGuardEnabled: rows[i].steam_guard,
+					setamGuardCode: rows[1].steam_guard_code
+				});
+			}
+		}
+	}
+
+	return result;
 }
