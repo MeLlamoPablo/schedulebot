@@ -97,3 +97,7 @@ sentry
 # Testing files
 
 t.js
+
+# Sensitive data
+
+.ENV
