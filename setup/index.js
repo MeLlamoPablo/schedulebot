@@ -5,13 +5,17 @@ const Heroku   = require("heroku-client")
 	, fs       = require("fs")
 	, path     = require("path")
 	, pg       = require("pg")
+	, knex     = require("knex")
 	, readEnv  = require("./readEnv")
 	, server   = require("schedulebot-setup");
 
 const port = process.env.PORT || 3000;
 
 let detailsStructure = require("../scripts/shared/db-details")({});
-let dbValues, projectRoot = path.join(__dirname, ".."), envExists = fs.existsSync(projectRoot + "/.ENV");
+let dbValues,
+	client,
+	projectRoot = path.join(__dirname, ".."),
+	envExists = fs.existsSync(projectRoot + "/.ENV");
 
 if (process.env.DATABASE_URL) {
 	// We'll think that DATABASE_URL being set means that the code is running on Heroku.
@@ -60,61 +64,51 @@ function run(connStr, ssl) {
 		pg.defaults.ssl = true;
 	}
 
-	let db = new pg.Client(connStr);
-
-	db.connect(err => {
-
-		if (!err) {
-
-			let existingData = {};
-
-			if (!envExists) {
-				saveEnv(dbValues);
-			}
-
-			dbStructureExists(db)
-				.then(exists => {
-
-					console.log(""); // Newline
-
-					if (exists) {
-						return getConfigFromDb(db)
-							.then(parseConfig)
-							.then(data => existingData = data);
-					} else {
-						return createDbStructure(db);
-					}
-
-				})
-				.then(() => server.run(port, existingData))
-				.then(result => afterRun(db, result))
-				.then(() => {
-
-					console.log("All good! You may now run the bot with:\n\n" +
-
-						"npm run bot");
-					process.exit(0);
-
-				})
-				.catch(err => {
-
-					console.error("An unexpected error occurred!\n");
-					console.error(err);
-					process.exit(1);
-
-				});
-
-		} else {
-			console.error("Couldn't connect to the database!\n");
-			console.error(err);
-			process.exit(1);
-		}
-
+	client = new knex({
+		connection: connStr,
+		client: "pg"
 	});
 
+
+	let existingData = {};
+
+	if (!envExists) {
+		saveEnv(dbValues);
+	}
+
+	dbStructureExists()
+		.then(exists => {
+
+			console.log(""); // Newline
+
+			if (exists) {
+				return getConfigFromDb()
+					.then(data => existingData = data);
+			} else {
+				return createDbStructure();
+			}
+
+		})
+		.then(() => server.run(port, existingData))
+		.then(result => afterRun(result))
+		.then(() => {
+
+			console.log("\nAll good! You may now run the bot with:\n\n" +
+
+				"npm run bot");
+			process.exit(0);
+
+		})
+		.catch(err => {
+
+			console.error("An unexpected error occurred!\n");
+			console.error(err);
+			process.exit(1);
+
+		});
 }
 
-function afterRun(client, result) {
+function afterRun(result) {
 	return new Promise((fulfill, reject) => {
 		if (result.heroku) {
 
@@ -123,7 +117,7 @@ function afterRun(client, result) {
 			hk.patch(`/apps/${result.heroku.app}/formation/web`, {
 				quantity: 0
 			})
-				.then(() => applyNewConfig(client, result))
+				.then(() => applyNewConfig(result))
 				.then(() => hk.patch(`/apps/${result.heroku.app}/formation/bot`, {
 					quantity: 1
 				}))
@@ -133,28 +127,19 @@ function afterRun(client, result) {
 
 		} else {
 
-			applyNewConfig(client, result).then(fulfill).catch(reject);
+			applyNewConfig(result).then(fulfill).catch(reject);
 
 		}
 	});
 }
 
-function dbStructureExists(client) {
-	return new Promise((fulfill, reject) => {
-		client.query("select * from information_schema.tables where table_schema = 'public'",
-			(err, result) => {
-				if (!err) {
-
-					fulfill(result.rowCount !== 0);
-
-				} else {
-					reject(err);
-				}
-			});
-	});
+function dbStructureExists() {
+	return client("information_schema.tables").select().where({
+		table_schema: "public"
+	}).then(rows => rows.length !== 0);
 }
 
-function createDbStructure(client) {
+function createDbStructure() {
 	return new Promise((fulfill, reject) => {
 		let sql;
 		try {
@@ -165,199 +150,157 @@ function createDbStructure(client) {
 			reject(err);
 		}
 
-		client.query(sql, err => {
-			if (!err) {
-				fulfill();
-			} else {
-				reject(err);
-			}
-		});
+		client.raw(sql).then(fulfill).catch(reject);
 	});
 }
 
-function getConfigFromDb(client) {
-	return new Promise((fulfill, reject) => {
-	    client.query(
-	    	"SELECT config.bot_token, config.settings, admins.userid AS adminid " +
-			"FROM config INNER JOIN admins ON 1=1 LIMIT 1;" +
-			"SELECT * FROM steam_bots",
-			(err, result) => {
-	    		if (!err) {
-	    			fulfill(result.rows);
-				} else {
-	    			reject(err);
+/**
+ * @return {Promise<Config>}
+ *
+ * @typedef {object} Config
+ * @property {object} discord
+ * @property {object} discord.bot
+ * @property {string} discord.bot.token
+ * @property {object} discord.admin
+ * @property {string} discord.admin.id
+ * @property {object} settings
+ * @property {SteamBotData[]} steamBots
+ *
+ * @typedef {object} SteamBotData
+ * @property {string} username
+ * @property {string} password
+ * @property {boolean} steamGuardEnabled
+ * @property {string} steamGuardCode
+ */
+function getConfigFromDb() {
+	let getConfAndAdminPromise = client.select(
+		"config.bot_token",
+		"config.settings",
+		"admins.userid AS adminid"
+	)
+		.from("config")
+		.innerJoin("admins", /* on */ 1, "=", 1)
+		.limit(1);
+
+	let getSteamBotsPromise = client.select().from("steam_bots");
+
+	return Promise.all([getConfAndAdminPromise, getSteamBotsPromise]).then(rows => {
+
+		let result = {
+			discord: {
+				bot: {},
+				admin: {}
+			},
+			settings: {},
+			steamBots: []
+		};
+
+		if (rows[0]) {
+			result.discord.bot.token = rows[0][0].bot_token;
+			result.discord.admin.id = rows[0][0].adminid;
+			result.settings = rows[0][0].settings;
+
+			if (rows[1]) {
+				for (let bot of rows[1]) {
+					result.steamBots.push({
+						username: bot.username,
+						password: bot.password,
+						steamGuardEnabled: bot.steam_guard,
+						setamGuardCode: bot.steam_guard_code
+					});
 				}
 			}
-		)
+		}
+
+		return result;
+
 	});
 }
 
-function parseConfig(rows) {
-	let result = {
-		discord: {
-			bot: {},
-			admin: {}
-		},
-		settings: {},
-		steamBots: []
-	};
+function applyNewConfig(newConfig) {
 
-	if (rows[0]) {
-		result.discord.bot.token = rows[0].bot_token;
-		result.discord.admin.id = rows[0].adminid;
-		result.settings = rows[0].settings;
+	let updateConfigPromise = client("config")
+		.truncate()
+		.then(() => client("config").insert({
+			bot_token: newConfig.discord.bot.token,
+			settings: newConfig.settings
+		}));
 
-		if (rows[1]) {
-			for (let i = 1; i < rows.length; i++) {
-				result.steamBots.push({
-					username: rows[i].username,
-					password: rows[i].password,
-					steamGuardEnabled: rows[i].steam_guard,
-					setamGuardCode: rows[1].steam_guard_code
+	let updateAdminPromise = client("admins")
+		.select("userid")
+		.where({ userid: newConfig.discord.admin.id })
+		.then(rows => {
+			if (rows.length === 0) {
+				return client("admins").insert({
+					userid: newConfig.discord.admin.id,
+					name: newConfig.discord.admin.username
 				});
 			}
-		}
-	}
+		});
 
-	return result;
-}
+	let updateSteamBotsPromise = new Promise((fulfill2, reject2) => {
+		client("steam_bots").select("username")
+			.then(rows => rows.map(bot => bot.username))
+			.then(existingBots => {
+				let promises = [];
 
-function applyNewConfig(client, newConfig) {
-	return new Promise((fulfill, reject) => {
+				// Three scenarios:
+				// 1.- A bot is present in newConfig.steamBots but not in existingBots
+				// ---> Add it to the database (it's a new bot)
+				// 2.- A bot is present in both newConfig.steamBots and existingBots
+				// ---> Update the row (the user modified it)
+				// 3.- A bot is present in existingBots but not in newConfig.steamBots
+				// ---> Delete it from the database (The user deleted it)
 
-		let updateConfigPromise = new Promise((fulfill2, reject2) => {
-
-			runQuery(client, "SELECT * FROM public.config").then(result => {
-
-				if (result.rowCount === 0) {
-
-					runQuery(
-						client,
-						"INSERT INTO public.config (bot_token, settings) " +
-						"VALUES ($1, $2)",
-						newConfig.discord.bot.token,
-						newConfig.settings
-					).then(() => fulfill2()).catch(reject2);
-
-				} else {
-
-					runQuery(
-						client,
-						"INSERT INTO public.config (bot_token, settings) " +
-						"VALUES ($1, $2)",
-						newConfig.discord.bot.token,
-						newConfig.settings
-					).then(() => fulfill2()).catch(reject2);
-
+				function scenario1(newBot) {
+					return client("steam_bots")
+						.insert({
+							username: newBot.username,
+							password: newBot.password,
+							steam_guard: newBot.steamGuardEnabled,
+							steam_guard_code: newBot.steamGuardCode
+						});
 				}
 
-			}).catch(reject2);
-
-		});
-
-		let updateAdminPromise = new Promise((fulfill2, reject2) => {
-
-			runQuery(
-				client,
-				"SELECT userid FROM public.admins WHERE userid = $1",
-				newConfig.discord.admin.id
-
-			).then(result => {
-
-				if (result.rowCount === 0) {
-
-					runQuery(
-						client,
-						"INSERT INTO public.admins (userid, name) VALUES ($1, $2)",
-						newConfig.discord.admin.id,
-						newConfig.discord.admin.username
-					).then(() => fulfill2()).catch(reject2);
-
-				} else {
-
-					fulfill();
-
+				function scenario2(newBot) {
+					return client("steam_bots")
+						.update({
+							password: newBot.password,
+							steam_guard: newBot.steamGuardEnabled,
+							steam_guard_code: newBot.steamGuardCode
+						})
+						.where({ username: newBot.username });
 				}
 
-			}).catch(reject2);
+				function scenario3(existingBotUsername) {
+					return client("steam_bots")
+						.del()
+						.where({ username: existingBotUsername });
+				}
 
+				for (let existingBotUsername of existingBots) {
+					let newBot = newConfig.steamBots
+						.find(bot => existingBotUsername === bot.username);
+
+					if (newBot) {
+						promises.push(scenario2(newBot));
+					} else {
+						promises.push(scenario3(existingBotUsername));
+					}
+				}
+
+				for (let newBot of newConfig.steamBots) {
+					if (existingBots.indexOf(newBot.username) === -1) {
+						promises.push(scenario1(newBot));
+					}
+				}
+
+				Promise.all(promises).then(() => fulfill2()).catch(reject2);
 		});
-
-		let updateSteamBotsPromise = new Promise((fulfill2, reject2) => {
-
-			let promises = [];
-
-			for (let bot of newConfig.steamBots) {
-
-				promises.push(new Promise((fulfill3, reject3) => {
-
-					runQuery(
-						client,
-						"SELECT id FROM public.steam_bots WHERE username = $1",
-						bot.username
-					).then(result => {
-
-						if (result.rowCount === 0) {
-
-							runQuery(
-								client,
-								"INSERT INTO public.steam_bots (username, password, steam_guard, " +
-								"steam_guard_code) VALUES ($1, $2, $3, $4)",
-								bot.username,
-								bot.password,
-								bot.steamGuardEnabled,
-								bot.steamGuardCode
-							).then(() => fulfill3()).catch(reject3);
-
-						} else {
-							fulfill3();
-						}
-
-					}).catch(reject3);
-
-				}));
-
-			}
-
-			Promise.all(promises).then(() => fulfill2()).catch(reject2);
-
-		});
-
-		Promise.all([
-			updateConfigPromise,
-			updateAdminPromise,
-			updateSteamBotsPromise
-		]).then(() => fulfill()).catch(reject);
-
 	});
-}
 
-function runQuery(client, query, ...data) {
-	return new Promise((fulfill, reject) => {
+	return Promise.all([updateConfigPromise, updateAdminPromise, updateSteamBotsPromise]);
 
-		if (data) {
-
-			client.query(query, data, (err, result) => {
-				if (err) {
-					reject(err);
-				} else {
-					fulfill(result);
-				}
-			});
-
-		} else {
-
-			client.query(query, (err, result) => {
-				if (err) {
-					reject(err);
-				} else {
-					fulfill(result);
-				}
-			});
-
-		}
-
-	});
 }
 
 function saveEnv(dbDetails) {

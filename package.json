@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "bot": "node ./lib/index.js",
+    "start": "node ./setup/index.js",
     "setup": "node ./scripts/setup.js",
     "setup-steam": "node ./scripts/setup-steam.js",
     "update": "node ./scripts/update.js",

@@ -98,7 +98,7 @@ inquirer.prompt(dbDetails).then(answers => {
 					} else {
 
 						// Let the user decide if they want to configure another bot or just
-						// remove an existing one
+						// remove an current one
 						addBot(client);
 
 					}
