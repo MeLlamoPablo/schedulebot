@@ -47,7 +47,7 @@
     "steam": "^1.4.0",
     "steam-verificator": "git+https://github.com/MeLlamoPablo/steam-verificator.git",
     "steamid": "^1.1.0",
-    "schedulebot-setup": "git+ssh://git@github.com/MeLlamoPablo/schedulebot-setup.git"
+    "schedulebot-setup": "MeLlamoPablo/schedulebot-setup"
   },
   "bugs": {
     "url": "https://github.com/mellamopablo/schedulebot/issues"
