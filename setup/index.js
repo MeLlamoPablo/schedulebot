@@ -72,7 +72,8 @@ function run(connStr, ssl) {
 
 	let existingData = {};
 
-	if (!envExists) {
+	// Only save the .ENV file if it doesn't exist and we're not on Heroku.
+	if (!envExists && !process.env.DATABASE_URL) {
 		saveEnv(dbValues);
 	}
 
