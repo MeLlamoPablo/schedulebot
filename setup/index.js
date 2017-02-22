@@ -90,6 +90,18 @@ function run(connStr, ssl) {
 			}
 
 		})
+		// If running on heroku, add the heroku data to existingData
+		.then(() => {
+			if (process.env.DATABASE_URL) {
+				existingData.heroku = {
+					enabled: true
+				};
+
+				if (process.env.HEROKU_API_KEY) {
+					existingData.heroku.key = process.env.HEROKU_API_KEY;
+				}
+			}
+		})
 		.then(() => server.run(port, existingData))
 		.then(result => afterRun(result))
 		.then(() => {
