@@ -103,7 +103,7 @@ function run(connStr, ssl) {
 			}
 		})
 		.then(() => server.run(port, existingData))
-		.then(result => afterRun(result))
+		.then(afterRun)
 		.then(() => {
 
 			console.log("\nAll good! You may now run the bot with:\n\n" +
@@ -127,7 +127,7 @@ function afterRun(result) {
 
 			const hk = new Heroku({ token: result.heroku.key });
 
-			hk.patch(`/apps/${result.heroku.app}/formation/web`, {
+			hk.patch(`/apps/${result.heroku.appName}/formation/web`, {
 				quantity: 0
 			})
 				.then(() => applyNewConfig(result))
