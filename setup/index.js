@@ -127,6 +127,8 @@ function afterRun(result) {
 
 			const hk = new Heroku({ token: result.heroku.key });
 
+			console.log(result);
+
 			hk.patch(`/apps/${result.heroku.appName}/formation/web`, {
 				quantity: 0
 			})
