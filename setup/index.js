@@ -209,9 +209,11 @@ function getConfigFromDb() {
 		};
 
 		if (rows[0]) {
-			result.discord.bot.token = rows[0][0].bot_token;
-			result.discord.admin.id = rows[0][0].adminid;
-			result.settings = rows[0][0].settings;
+			if (rows[0][0]) {
+				result.discord.bot.token = rows[0][0].bot_token;
+				result.discord.admin.id = rows[0][0].adminid;
+				result.settings = rows[0][0].settings;
+			}
 
 			if (rows[1]) {
 				for (let bot of rows[1]) {
