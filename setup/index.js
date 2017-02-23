@@ -127,13 +127,11 @@ function afterRun(result) {
 
 			const hk = new Heroku({ token: result.heroku.key });
 
-			console.log(result);
-
 			hk.patch(`/apps/${result.heroku.appName}/formation/web`, {
 				quantity: 0
 			})
 				.then(() => applyNewConfig(result))
-				.then(() => hk.patch(`/apps/${result.heroku.app}/formation/bot`, {
+				.then(() => hk.patch(`/apps/${result.heroku.appName}/formation/bot`, {
 					quantity: 1
 				}))
 				.then(() => console.log("\nAll good! The setup page should shut down, and the " +
