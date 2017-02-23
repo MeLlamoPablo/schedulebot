@@ -127,13 +127,20 @@ function afterRun(result) {
 
 			const hk = new Heroku({ token: result.heroku.key });
 
+			console.log(`DEBUG: Sending request PATCH /apps/${result.heroku.appName}/formation/web\n` +
+			`BODY: { quantity: 0 }`);
+
 			hk.patch(`/apps/${result.heroku.appName}/formation/web`, {
 				quantity: 0
 			})
+				.then(res => console.log(`DEBUG: Heroku answered with ${JSON.stringify(res)}`))
 				.then(() => applyNewConfig(result))
+				.then(() => console.log(`DEBUG: Sending request PATCH /apps/${result.heroku.appName}/formation/bot\n` +
+					`BODY: { quantity: 1 }`))
 				.then(() => hk.patch(`/apps/${result.heroku.appName}/formation/bot`, {
 					quantity: 1
 				}))
+				.then(res => console.log(`DEBUG: Heroku answered with ${JSON.stringify(res)}`))
 				.then(() => console.log("\nAll good! The setup page should shut down, and the " +
 					"bot should boot automatically."))
 				.catch(reject);
