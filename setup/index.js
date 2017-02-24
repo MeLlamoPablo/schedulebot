@@ -108,7 +108,7 @@ function run(connStr, ssl) {
 			console.log("\nAll good! You may now run the bot with:\n\n" +
 
 				"npm run bot");
-			// process.exit(0); TODO uncomment
+			process.exit(0);
 
 			setInterval(() => console.log("Setup has ended. Pretending to do work."), 2000);
 
@@ -123,17 +123,17 @@ function run(connStr, ssl) {
 }
 
 function afterRun(result) {
-	/*return new Promise((fulfill, reject) => {
+	return new Promise((fulfill, reject) => {
 		if (result.heroku) {
 
 			const hk = new Heroku({ token: result.heroku.key });
 
-			hk.patch(`/apps/${result.heroku.appName}/formation/web`, {
-				quantity: 0
+			git .patch(`/apps/${result.heroku.appName}/formation/web`, {
+				body: { quantity: 0 }
 			})
 				.then(() => applyNewConfig(result))
 				.then(() => hk.patch(`/apps/${result.heroku.appName}/formation/bot`, {
-					quantity: 1
+					body: { quantity: 1 }
 				}))
 				.then(() => console.log("\nAll good! The setup page should shut down, and the " +
 					"bot should boot automatically."))
@@ -144,13 +144,7 @@ function afterRun(result) {
 			applyNewConfig(result).then(fulfill).catch(reject);
 
 		}
-	});*/
-
-	/*
-	 * So apparently making request to Heroku from a dyno won't work, or doesn't work for me.
-	 * Making the requests from the client is a potential solution.
-	 */
-	return applyNewConfig(result);
+	});
 }
 
 function dbStructureExists() {
