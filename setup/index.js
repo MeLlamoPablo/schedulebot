@@ -128,7 +128,7 @@ function afterRun(result) {
 
 			const hk = new Heroku({ token: result.heroku.key });
 
-			git .patch(`/apps/${result.heroku.appName}/formation/web`, {
+			hk.patch(`/apps/${result.heroku.appName}/formation/web`, {
 				body: { quantity: 0 }
 			})
 				.then(() => applyNewConfig(result))
