@@ -108,14 +108,16 @@ function run(connStr, ssl) {
 			console.log("\nAll good! You may now run the bot with:\n\n" +
 
 				"npm run bot");
-			process.exit(0);
+			// process.exit(0); TODO uncomment
+
+			setInterval(() => console.log("Setup has ended. Pretending to do work."), 2000);
 
 		})
 		.catch(err => {
 
 			console.error("An unexpected error occurred!\n");
 			console.error(err);
-			//process.exit(1); TODO uncomment
+			process.exit(1);
 
 		});
 }
