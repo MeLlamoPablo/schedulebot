@@ -1,7 +1,6 @@
 "use strict";
 
-const Heroku   = require("heroku-client")
-	, inquirer = require("inquirer")
+const inquirer = require("inquirer")
 	, fs       = require("fs")
 	, path     = require("path")
 	, pg       = require("pg")
@@ -116,7 +115,7 @@ function run(connStr, ssl) {
 
 			console.error("An unexpected error occurred!\n");
 			console.error(err);
-			process.exit(1);
+			//process.exit(1); TODO uncomment
 
 		});
 }
