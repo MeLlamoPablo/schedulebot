@@ -1,6 +1,7 @@
 "use strict";
 
-const inquirer = require("inquirer")
+const Heroku   = require("heroku-client")
+	, inquirer = require("inquirer")
 	, fs       = require("fs")
 	, path     = require("path")
 	, pg       = require("pg")
