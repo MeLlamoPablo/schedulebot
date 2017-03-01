@@ -37,6 +37,7 @@
     "clapp": "^1.1.0",
     "discord.js": "^10.0.1",
     "dota2": "^4.2.1",
+    "heroku-client": "^3.0.2",
     "inquirer": "^1.2.2",
     "knex": "^0.12.6",
     "moment": "^2.15.1",
@@ -44,10 +45,10 @@
     "pg": "^6.1.0",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
+    "schedulebot-setup": "MeLlamoPablo/schedulebot-setup",
     "steam": "^1.4.0",
     "steam-verificator": "git+https://github.com/MeLlamoPablo/steam-verificator.git",
-    "steamid": "^1.1.0",
-    "schedulebot-setup": "MeLlamoPablo/schedulebot-setup"
+    "steamid": "^1.1.0"
   },
   "bugs": {
     "url": "https://github.com/mellamopablo/schedulebot/issues"
