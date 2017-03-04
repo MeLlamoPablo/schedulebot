@@ -1,15 +1,17 @@
 "use strict";
 
-const Heroku   = require("heroku-client")
-	, inquirer = require("inquirer")
-	, fs       = require("fs")
-	, path     = require("path")
-	, pg       = require("pg")
-	, knex     = require("knex")
-	, readEnv  = require("./readEnv")
-	, server   = require("schedulebot-setup");
+const Heroku          = require("heroku-client")
+	, inquirer        = require("inquirer")
+	, fs              = require("fs")
+	, getUpdateScript = require("./getUpdateScript")
+	, path            = require("path")
+	, pg              = require("pg")
+	, knex            = require("knex")
+	, readEnv         = require("./readEnv")
+	, server          = require("schedulebot-setup");
 
 const port = process.env.PORT || 3000;
+const GITHUB_TARBALL_URL = "https://api.github.com/repos/MeLlamoPablo/schedulebot/tarball/dota";
 
 let detailsStructure = require("../scripts/shared/db-details")({});
 let dbValues,
@@ -111,8 +113,6 @@ function run(connStr, ssl) {
 				"npm run bot");
 			process.exit(0);
 
-			setInterval(() => console.log("Setup has ended. Pretending to do work."), 2000);
-
 		})
 		.catch(err => {
 
@@ -125,24 +125,65 @@ function run(connStr, ssl) {
 
 function afterRun(result) {
 	return new Promise((fulfill, reject) => {
-		if (result.heroku) {
+		if (result.action === "setup") {
 
-			const hk = new Heroku({ token: result.heroku.key });
+			if (result.data.heroku) {
 
-			hk.patch(`/apps/${result.heroku.appName}/formation/web`, {
-				body: { quantity: 0 }
-			})
-				.then(() => applyNewConfig(result))
-				.then(() => hk.patch(`/apps/${result.heroku.appName}/formation/bot`, {
-					body: { quantity: 1 }
-				}))
-				.then(() => console.log("\nAll good! The setup page should shut down, and the " +
-					"bot should boot automatically."))
-				.catch(reject);
+				const hk = new Heroku({ token: result.data.heroku.key });
 
-		} else {
+				applyNewConfig(result.data)
+					.then(() => hk.patch(`/apps/${result.data.heroku.appName}/formation/bot`, {
+						body: { quantity: 1 }
+					}))
+					.then(hk.patch(`/apps/${result.data.heroku.appName}/formation/web`, {
+						body: { quantity: 0 }
+					}))
+					.then(() => console.log("\nAll good! The setup page should shut down, and the "
+						+ "bot should boot automatically."))
+					.catch(reject);
 
-			applyNewConfig(result).then(fulfill).catch(reject);
+			} else {
+
+				applyNewConfig(result.data).then(fulfill).catch(reject);
+
+			}
+
+		} else if (result.action === "update") {
+
+			getUpdateScript(result.data.currentVersion, result.data.nextVersion)
+				.then(script => {
+
+					if (script !== null) {
+
+						return client.raw(script)
+							.then(() =>
+								console.log("The database has been updated to v" +
+								result.data.nextVersion));
+
+					}
+
+				}).then(() => {
+
+					if (process.env.HEROKU_APP_ID) {
+
+						const hk = new Heroku({ token: process.env.HEROKU_API_KEY });
+
+						return hk.patch(`/apps/${process.env.HEROKU_APP_ID}/formation/bot`, {
+							body: { quantity: 1 }
+						})
+						.then(hk.patch(`/apps/${process.env.HEROKU_APP_ID}/formation/web`, {
+							body: { quantity: 0 }
+						}))
+						.then(hk.post(`/apps/${process.env.HEROKU_APP_ID}/builds`, {
+							body: {
+								source_blob: { url: GITHUB_TARBALL_URL }
+							}
+						}))
+						.then(() => console.log("All good! The update should begin now"));
+
+					}
+
+				}).then(fulfill).catch(reject);
 
 		}
 	});
@@ -191,6 +232,7 @@ function getConfigFromDb() {
 	let getConfAndAdminPromise = client.select(
 		"config.bot_token",
 		"config.settings",
+		"config.db_version",
 		"admins.userid AS adminid"
 	)
 		.from("config")
@@ -215,6 +257,7 @@ function getConfigFromDb() {
 				result.discord.bot.token = rows[0][0].bot_token;
 				result.discord.admin.id = rows[0][0].adminid;
 				result.settings = rows[0][0].settings;
+				result.currentVersion = rows[0][0].db_version;
 			}
 
 			if (rows[1]) {
@@ -237,11 +280,10 @@ function getConfigFromDb() {
 function applyNewConfig(newConfig) {
 
 	let updateConfigPromise = client("config")
-		.truncate()
-		.then(() => client("config").insert({
+		.update({
 			bot_token: newConfig.discord.bot.token,
 			settings: newConfig.settings
-		}));
+		});
 
 	let updateAdminPromise = client("admins")
 		.select("userid")
