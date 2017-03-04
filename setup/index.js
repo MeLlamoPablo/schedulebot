@@ -150,10 +150,7 @@ function afterRun(result) {
 
 		} else if (result.action === "update") {
 
-			console.log("A");
-			console.log(result.data);
-
-			getUpdateScript(result.data.currentVersion, result.data.nextVersion)
+			getUpdateScript(result.data.currentVersion, result.data.newVersion)
 				.then(script => {
 
 					if (script !== null) {
