@@ -56,6 +56,8 @@ const getVersions = () => request({
  * @return {string[]} An array of strings with the following structure: a.b.c-to-d.e.f.sql
  */
 const determineScriptNames = (versions, currentVersion, newVersion) => {
+	console.log("B");
+	console.log(versions, currentVersion, newVersion);
 
 	let newSemver = versions.find(sv => sv.version === newVersion);
 	let currentSemver = versions.find(sv => sv.version === currentVersion);
