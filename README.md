@@ -26,17 +26,55 @@ use the bot.
 members of that role can be notified when they are required to confirm or deny attendance to an
 event.
 
-## Local installation
+## Installation
 
-To run ScheduleBot Dota Edition locally, you will need:
+There are two ways to run ScheduleBot. You can **deploy it to Heroku** or **install it in your
+machine locally**.
+
+If you want to host ScheduleBot locally, you'll need to have your computer on 24/7 (provided you
+need the bot running 24/7), and you'll need to install a few programs.
+
+If you want to deploy it to Heroku, you'll need a [Heroku](https://www.heroku.com/home) account. You
+don't need to spend any money, since their free plan is good enough. However you'll need to verify
+your account with your credit card to have the bot running 24/7 (unverified accounts get 450 hours
+per month of uptime, which is not enough to cover a full month. Verified accounts get 1000 hours,
+which is enough). As long as you don't enable any paid service you won't get charged anything.
+
+### Deploying to Heroku
+
+In order to deploy the bot to Heroku, simply click on the following button:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/MeLlamoPablo/schedulebot/tree/dota)
+
+You'll be asked to log in or sign up. Then you'll be asked to choose an app name, and a server.
+After that, you may press `Deploy`.
+
+![Explanation Image 1](https://raw.githubusercontent.com/MeLlamoPablo/schedulebot/dota/resources/heroku-1.png)
+
+After you see the message `Your app was successfully deployed`, you can click `View` to enter the
+Setup page.
+
+![Explanation Image 2](https://raw.githubusercontent.com/MeLlamoPablo/schedulebot/dota/resources/heroku-2.png)
+
+Follow the instructions in that page and you'll have your bot up and running soon.
+
+If you encountered any problems, you should check the app logs. In order to get there, click `Manage
+ App`, and in that panel, go to the right corner, click on `More`, and then `View logs`:
+ 
+![Explanation Image 2](https://raw.githubusercontent.com/MeLlamoPablo/schedulebot/dota/resources/heroku-3.png)
+
+### Local installation
+
+To run ScheduleBot locally, you will need:
 
 * [NodeJS](https://nodejs.org/en/download/) 6 or above.
 * [PostgreSQL](https://www.postgresql.org/download/).
 	* You'll need to create an empty database for ScheduleBot.
-* [git](https://git-scm.com/downloads), so you can easily clone this repo (optional).
-* A second [Steam](http://steamcommunity.com/) account for your bot.
+* [git](https://git-scm.com/downloads), so you can easily clone this repo.
 
-Start by cloning this repo, and then install the dependencies:
+Start by cloning this repo, and then install the dependencies. In a command line (if you're on
+Windows and have no idea what that means, open the `Git Bash` program that was installed with git),
+do:
 
 ```sh
 $ git clone https://github.com/MeLlamoPablo/schedulebot.git
@@ -44,33 +82,20 @@ $ cd schedulebot
 $ npm install
 ```
 
-And edit the bot's settings in `config.js`. You can edit or leave whatever you want, but you
-should at least edit:
-
-* `master_channel` with the Discord channel where your bot will operate.
-	* If you don't know how to get it, go to Discord's settings, then `Appearance`, then check
-	`Developer Mode`. After that, right click on your channel, and click `Copy ID`.
-* `default_timezone` with the time zone which will be used by the bot.
-* `db` with yout postgres database settings.
-* `steam.profile_url` with your Steam bot's profile URL.
-
-Now, make sure that your postgres server is running, and run the database setup script:
+Now make sure that postgres is running and launch the setup server by doing:
 
 ```sh
 $ npm run setup
 ```
 
-The script will take your database settings from `config.js`, so you can just go ahead and press
-enter. When asked if you want to connect over SSL, unless you have configured your postgres
-server to use it, you should say no. Then follow the script's instructions to finish the setup.
+Enter your database settings. When asked if you want to connect over SSL, unless you have configured
+your postgres server to use it, you should say no. Then visit the setup site at
+[http://localhost:3000](http://localhost:3000). Follow the instructions in there.
 
-After that, you need to configure your Steam credentials:
+**Note**: an `.ENV` file containing your database settings will be created at your bot's directory.
+Do not delete it, as it's needed by the bot to work.
 
-```sh
-$ npm run setup-steam
-```
-
-Follow the script's instructions and you're good to go. You can run then your bot with:
+Once you click the `Deploy Bot` button, you can run then your bot with:
 
 ```sh
 $ npm run bot
@@ -83,53 +108,19 @@ After installing your bot, you might want to check out the
 
 ## Updating
 
-Updating your bot is easy. First, you need to know which version you have installed. To do so, go
-to Discord and run the command:
+Updating your bot is easy. If you're on Heroku, run the `schedulebot-admin config-mode` command and
+enter the Setup site. You'll be prompted to update if there are new versions. That's all you need to
+do.
 
-```
-@ScheduleBot --help
-```
-
-*Note: replace `@ScheduleBot` with your app's prefix*. Take note of the current version.
-
-After that, stop your bot. Then, replace your current files with the latest version files. If you
-used `git` to clone the repository, this is easy:
+If you're not running on Heroku, you need to manually shut down the bot and launch the setup server
+with `npm run bot`. Then, you'll be prompted to update on the Setup site as well. Except that will
+only update your database, so you'll need to manually update your bot. This is easy thanks to git:
 
 ```sh
-$ git pull --all
+$ git pull
 ```
-
-If you forked this repo to deploy to Heroku, this will not work, because it's pulling from your
-repo, and not from this one. To solve that, first [configure this repo (MeLlamoPablo/schedulebot)
-as a remote for your fork (YOUR_GITHUB_USERNAME/schedulebot)](https://help.github.com/articles/configuring-a-remote-for-a-fork/).
-Then, [fetch this repo](https://help.github.com/articles/syncing-a-fork/)
-*(change `master` to `dota` or `heroku-dota`, depending on what branch you're working with)*.
-
-After that, perform another npm install to make sure that you get any new dependencies or update
-existing ones:
-
-```
-$ npm install
-```
-
-However, after all of this your bot is not ready yet. A database update is also required:
-
-```sh
-$ npm run update
-```
-
-When prompted to select the current version, select the version you took note of. When prompted 
-to select the target version, you generally want to select the latest. After that, enter your 
-database credentials, and your database will also be updated to the selected version.
 
 You're now ready to run your bot again.
-
-## Deploying to Heroku
-
-If you wanted to host ScheduleBot locally, you'd need to have your computer on 24/7 to have your bot
-always online. To avoid that, we could use a PaaS provider, such as Heroku. Heroku's free plan is
-good enough for hosting our bot. To learn how to deploy the bot to heroku,
-[go here](https://github.com/MeLlamoPablo/schedulebot/tree/heroku-dota#heroku-deployment-guide).
 
 ## Changelog
 

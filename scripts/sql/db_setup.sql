@@ -1,7 +1,11 @@
 CREATE TABLE public.config
 (
-  bot_token TEXT
+  bot_token TEXT,
+  settings JSON,
+  db_version VARCHAR(6) NULL
 );
+
+INSERT INTO public.config (db_version) VALUES ('2.0.0');
 
 CREATE TABLE public.steam_bots
 (
