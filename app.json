@@ -2,7 +2,7 @@
 	"name": "ScheduleBot Dota Edition",
 	"description": "A Discord Bot that can host Dota 2 lobbies",
 	"repository": "https://github.com/MeLlamoPablo/schedulebot",
-	"logo": "https://raw.githubusercontent.com/MeLlamoPablo/schedulebot/dev-feature-setup/resources/logo.png",
+	"logo": "https://raw.githubusercontent.com/MeLlamoPablo/schedulebot/dota/resources/logo.png",
 	"addons": [
 		{
 			"plan": "heroku-postgresql:hobby-dev"
