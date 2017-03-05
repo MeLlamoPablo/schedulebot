@@ -226,6 +226,13 @@ schedulebot-admin blacklist-add @IDontLikeThisGuy#1234
 schedulebot-admin blacklist-remove @PromiseToBeGood#9876
 ```
 
+### config-mode
+
+If you're running the bot on Heroku, this will shut down the bot and turn on the setup site so you
+can make changes to the configuration.
+
+If you're not, this has no effect. Shutdown the bot manually and turn it on with `npm run setup`.
+
 ### kick
 
 The `kick` command is used to force an user to deny their attendance for an event. This is useful
