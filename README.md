@@ -1,3 +1,7 @@
+# [Warning! Unmaintained version! ![Unmaintained branch](https://img.shields.io/badge/manintainance%20status-unmaintained%20for%20now-red.svg)](https://github.com/MeLlamoPablo/schedulebot/issues/29)
+
+Please see [this issue](https://github.com/MeLlamoPablo/schedulebot/issues/29) for an explanation about why the Standard version is not currently being maintained. **The Dota 2 version *is* still maintained; it's not affected by this**.
+
 # ScheduleBot
 > A Discord bot that makes scheduling easy
 
