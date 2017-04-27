@@ -51,5 +51,8 @@
   "bugs": {
     "url": "https://github.com/mellamopablo/schedulebot/issues"
   },
+  "engines": {
+    "node": "7.9.0"
+  },
   "cache": []
 }
