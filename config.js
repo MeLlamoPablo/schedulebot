@@ -18,7 +18,7 @@ module.exports = {
 
 	// The master channel
 	// The bot will announce the events to this channel. It won't listen to other channels.
-	master_channel: "307091110113705984",
+	master_channel: "YOUR_MASTER_CHANNEL",
 
 	// Events are considered "happening" for a margin of time, where users can see that the event
 	// is happening right now. During that time, the event is not considered expired yet.+
@@ -30,7 +30,7 @@ module.exports = {
 	update_interval: 60000, // In milliseconds
 
 	// List of accepted timezones: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-	default_timezone: "Europe/Bucharest",
+	default_timezone: "Europe/Madrid",
 
 	// If this option is enabled, the bot will delete the message that triggered it, and its own
 	// response, after the specified amount of time has passed.
