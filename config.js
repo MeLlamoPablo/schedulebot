@@ -21,7 +21,7 @@ module.exports = {
 	// ScheduleBot's case), the string "<@YOUR_BOT_USER_ID>" doesn't get parsed as a mention.
 	// So in order not to mislead the user, we have a separate option for a readable version of
 	// our prefix.
-	readable_prefix: "377876339111231491",
+	readable_prefix: "@d2cihbot#7216",
 
 	// Admin app settings
 	admin_app: {
@@ -102,7 +102,7 @@ module.exports = {
 		name: "ScheduleBot",
 
 		// The first bot's profile URL. It's needed to redirect users to it.
-		profile_url: "http://steamcommunity.com/profiles/YOUR_BOT_ID/"
+		profile_url: "http://steamcommunity.com/profiles/76561198442978152/"
 	},
 
 	dota: {
@@ -110,7 +110,7 @@ module.exports = {
 		// --server flag to the add-inhouse command.
 		// Go to that command's file (Or type -schedulebot add-inhouse --help)
 		// to see possible values.
-		default_server: "Luxembourg",
+		default_server: "US East",
 
 		// If false, lobbies will be started automatically when ten people join it
 		// (spectators, casters and unassigned players not counted).
@@ -154,4 +154,4 @@ module.exports = {
 };
 
 // "Add to server" link:
-// https://discordapp.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot&permissions=0x00002000
+// https://discordapp.com/oauth2/authorize?client_id=377876339111231491&scope=bot&permissions=0x00002000
