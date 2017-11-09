@@ -11,7 +11,7 @@ module.exports = {
 	// If you replace YOUR_BOT_USER_ID with your bot's user ID, the prefix will be a mention to
 	// your bot. You can get that ID in https://discordapp.com/developers/applications/me/
 	// (click on your application, and find it under "App Details" > "Client ID"
-	prefix:  "377876339111231491",
+	prefix:  "377973608804253698",
 
 	// This is a readable version of the prefix. Generally, this is the same as prefix, but if
 	// you set prefix to be in the form of "<@YOUR_BOT_USER_ID>", you'd need to set readable_prefix
@@ -21,7 +21,7 @@ module.exports = {
 	// ScheduleBot's case), the string "<@YOUR_BOT_USER_ID>" doesn't get parsed as a mention.
 	// So in order not to mislead the user, we have a separate option for a readable version of
 	// our prefix.
-	readable_prefix: "@d2cihbot#7216",
+	readable_prefix: "D2CIH bot#069",
 
 	// Admin app settings
 	admin_app: {
