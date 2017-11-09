@@ -154,4 +154,4 @@ module.exports = {
 };
 
 // "Add to server" link:
-// https://discordapp.com/oauth2/authorize?client_id=377876339111231491&scope=bot&permissions=0x00002000
+// https://discordapp.com/oauth2/authorize?client_id=3377973608804253698&scope=bot&permissions=0x00002000
