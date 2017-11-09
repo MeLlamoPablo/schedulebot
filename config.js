@@ -26,7 +26,7 @@ module.exports = {
 	// Admin app settings
 	admin_app: {
 		desc: "ScheduleBot admin commands",
-		prefix: "schedulebot-admin"
+		prefix: "d2cih-admin"
 	},
 
 	// The master channel
@@ -99,7 +99,7 @@ module.exports = {
 
 	steam: {
 		// The name that the Steam bots will take. It will be appended with "#id" as in "#1".
-		name: "ScheduleBot",
+		name: "D2CIH",
 
 		// The first bot's profile URL. It's needed to redirect users to it.
 		profile_url: "http://steamcommunity.com/profiles/76561198442978152/"
@@ -138,7 +138,7 @@ module.exports = {
 			// If enforce is true, the bot will only allow people who have their MMR publicly
 			// exposed in OpenDota to confirm any events. This is useful for competitive leagues
 			// who need to control MMR; it's recommended to leave it false otherwise.
-			enforce: false,
+			enforce: true,
 
 			// ScheduleBot will update all users' MMR on each interval.
 			update_interval: 8 // In hours
