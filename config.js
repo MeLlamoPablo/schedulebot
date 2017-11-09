@@ -2,7 +2,7 @@ module.exports = {
 
 	// Your bot name. Typically, this is your bot's username without the discriminator.
 	// i.e: if your bot's username is MemeBot#0420, then this option would be MemeBot.
-	name: "ScheduleBot",
+	name: "D2CI-H bot",
 
 	// The bot's command prefix. The bot will recognize as command any message that begins with it.
 	// i.e: "-schedulebot foo" will trigger the command "foo",
@@ -11,7 +11,7 @@ module.exports = {
 	// If you replace YOUR_BOT_USER_ID with your bot's user ID, the prefix will be a mention to
 	// your bot. You can get that ID in https://discordapp.com/developers/applications/me/
 	// (click on your application, and find it under "App Details" > "Client ID"
-	prefix:  "<@YOUR_BOT_USER_ID>",
+	prefix:  "377973608804253698",
 
 	// This is a readable version of the prefix. Generally, this is the same as prefix, but if
 	// you set prefix to be in the form of "<@YOUR_BOT_USER_ID>", you'd need to set readable_prefix
@@ -21,17 +21,17 @@ module.exports = {
 	// ScheduleBot's case), the string "<@YOUR_BOT_USER_ID>" doesn't get parsed as a mention.
 	// So in order not to mislead the user, we have a separate option for a readable version of
 	// our prefix.
-	readable_prefix: "@YOUR_BOT_USER_NAME",
+	readable_prefix: "D2CIH bot#069",
 
 	// Admin app settings
 	admin_app: {
 		desc: "ScheduleBot admin commands",
-		prefix: "schedulebot-admin"
+		prefix: "d2cih-admin"
 	},
 
 	// The master channel
 	// The bot will announce the events to this channel. It won't listen to other channels.
-	master_channel: "YOUR_MASTER_CHANNEL",
+	master_channel: "366993171319750657",
 
 	// Events are considered "happening" for a margin of time, where users can see that the event
 	// is happening right now. During that time, the event is not considered expired yet.+
@@ -43,7 +43,7 @@ module.exports = {
 	update_interval: 60000, // In milliseconds
 
 	// List of accepted timezones: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-	default_timezone: "Europe/Madrid",
+	default_timezone: "America/Bogota",
 
 	// The time format that will be used for the create command. The bot will read a date string
 	// and will attempt to interpret it as the following format. If the passed time doesn't
@@ -99,10 +99,10 @@ module.exports = {
 
 	steam: {
 		// The name that the Steam bots will take. It will be appended with "#id" as in "#1".
-		name: "ScheduleBot",
+		name: "D2CIH",
 
 		// The first bot's profile URL. It's needed to redirect users to it.
-		profile_url: "http://steamcommunity.com/profiles/YOUR_BOT_ID/"
+		profile_url: "http://steamcommunity.com/profiles/76561198442978152/"
 	},
 
 	dota: {
@@ -110,7 +110,7 @@ module.exports = {
 		// --server flag to the add-inhouse command.
 		// Go to that command's file (Or type -schedulebot add-inhouse --help)
 		// to see possible values.
-		default_server: "Luxembourg",
+		default_server: "US East",
 
 		// If false, lobbies will be started automatically when ten people join it
 		// (spectators, casters and unassigned players not counted).
@@ -138,7 +138,7 @@ module.exports = {
 			// If enforce is true, the bot will only allow people who have their MMR publicly
 			// exposed in OpenDota to confirm any events. This is useful for competitive leagues
 			// who need to control MMR; it's recommended to leave it false otherwise.
-			enforce: false,
+			enforce: true,
 
 			// ScheduleBot will update all users' MMR on each interval.
 			update_interval: 8 // In hours
@@ -154,4 +154,4 @@ module.exports = {
 };
 
 // "Add to server" link:
-// https://discordapp.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot&permissions=0x00002000
+// https://discordapp.com/oauth2/authorize?client_id=3377973608804253698&scope=bot&permissions=0x00002000
